@@ -5,6 +5,7 @@ workers to learn and become familiar with triage protocols for mass casualty
 incidents. The project aims to provide users with a readily available tool to
 test and refresh their triage skills. The app currently supports the START
 triage algorithm (Benson et al, 1996).
+Modified by PastaStorm, 2026 — converted from START to NHS TST
 
 You can see a demo deployment [here](https://triage.pages.dev).
 
