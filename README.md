@@ -6,7 +6,7 @@ incidents. The project aims to provide users with a readily available tool to
 test and refresh their triage skills. The app currently supports the START
 triage algorithm (Benson et al, 1996).
 
-Being modified by PastaStorm, 2026 — converted from START to NHS TST
+Being modified by PastaStorm, 2026 — converting from START to NHS TST
 
 You can see a demo deployment [here](https://triage.pages.dev).
 
