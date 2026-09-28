@@ -1,10 +1,10 @@
-import { randomInt, randomBool, randomFloat } from './utils'
+import { randomInt, randomBool } from './utils'
 
 export enum Code {
-  EXPECTANT = 4,
-  IMMEDIATE = 3,
-  DELAYED = 2,
-  MINOR = 1
+  NOT_BREATHING = 4,
+  P1 = 3,
+  P2 = 2,
+  P3 = 1
 }
 
 export interface Patient {
@@ -12,89 +12,49 @@ export interface Patient {
   age: number
   code: Code
   assignedCode?: Code
-  bleeding: boolean
-  bleedingControlled?: boolean
-  walking?: boolean
-  breathing?: boolean
-  airwayObstruction: boolean
-  airwayCleared?: boolean
-  respiratoryRate?: number
-  capillaryRefill?: number
-  obeys?: boolean
+  canWalk: boolean
+  severeBleeding: boolean
+  talking: boolean
+  breathing: boolean
+  penetratingTorsoInjury: boolean
 }
 
 export enum Feedback {
   CODE_NOT_ASSIGNED,
   CODE_CORRECT,
   CODE_INCORRECT,
-  BLEEDING_CONTROLLED,
-  BLEEDING_NOT_CONTROLLED,
-  BLEEDING_NOT_NEEDED,
-  AIRWAY_CLEARED,
-  AIRWAY_NOT_CLEARED,
-  AIRWAY_NOT_NEEDED,
-  PROGRESS_STOP_MOBILTY,
-  PROGRESS_STOP_RESPIRATORY_RATE,
-  PROGRESS_STOP_CAPILLARY_REFILL,
+  NOT_BREATHING,
+  WALKING_P3,
+  AGE_UNDER_TWO_P1,
+  SEVERE_BLEEDING_P1,
+  NOT_TALKING_P1,
+  PENETRATING_INJURY_P1,
+  OTHERWISE_P2,
+  SEVERE_BLEEDING_ACTION,
 }
 
-abstract class TriageAlgorithm {
-  abstract newPatient (code: Code): Patient
-  abstract controlBleeding (): Partial<Patient>
-  abstract clearAirway (): Partial<Patient>
-  abstract checkRespiratoryRate (p: Patient): Partial<Patient>
-  abstract checkCapillaryRefill (p: Patient): Partial<Patient>
-  abstract checkMentalStatus (p: Patient): Partial<Patient>
-  abstract checkWalking (p: Patient): Partial<Patient>
-  abstract getFeedback (p: Patient): Feedback[]
-}
-
-class Start extends TriageAlgorithm {
-  newPatient (code: Code, id?: number): Patient {
+class TriageScoringTool {
+  newPatient (id?: number): Patient {
     const age = randomInt(0, 80)
-    const airwayObstruction = code === Code.IMMEDIATE ? randomBool(0.3) : false
-    const bleeding = !!randomBool(0.3)
-    const bleedingControlled = false
+    const patient = {
+      id: id ?? randomInt(0, 500),
+      age,
+      canWalk: randomBool(0.35),
+      severeBleeding: randomBool(0.2),
+      talking: randomBool(0.85),
+      breathing: randomBool(0.97),
+      penetratingTorsoInjury: randomBool(0.15),
+      code: Code.P2
+    }
 
-    return { id: id ?? randomInt(0, 500), age, code, airwayObstruction, bleeding, bleedingControlled }
+    return { ...patient, code: this.getCode(patient) }
   }
 
-  controlBleeding (): Partial<Patient> {
-    return { bleedingControlled: true }
-  }
-
-  clearAirway (): Partial<Patient> {
-    return { airwayCleared: true }
-  }
-
-  checkRespiratoryRate ({ code, airwayObstruction, airwayCleared }: Patient): Partial<Patient> {
-    const obstructed = airwayObstruction && airwayCleared !== true
-
-    let respiratoryRate = 0 // Default value for expectant patients
-    if (code < Code.IMMEDIATE) respiratoryRate = randomInt(5, 30)
-    if (code === Code.IMMEDIATE) respiratoryRate = obstructed ? 0 : randomInt(10, 45)
-
-    return { respiratoryRate }
-  }
-
-  checkCapillaryRefill ({ code }: Patient): Partial<Patient> {
-    let capillaryRefill = 0
-    if (code === Code.EXPECTANT) capillaryRefill = randomFloat(2, 10)
-    else if (code === Code.IMMEDIATE) capillaryRefill = randomFloat(0, 4)
-    else capillaryRefill = randomFloat(0, 2)
-
-    return { capillaryRefill }
-  }
-
-  checkMentalStatus ({ code }: Patient): Partial<Patient> {
-    const obeys = code < Code.IMMEDIATE
-
-    return { obeys }
-  }
-
-  checkWalking ({ code }: Patient): Partial<Patient> {
-    const walking = code <= Code.MINOR
-    return { walking }
+  getCode (patient: Patient): Code {
+    if (!patient.breathing) return Code.NOT_BREATHING
+    if (patient.canWalk) return Code.P3
+    if (patient.age < 2 || patient.severeBleeding || !patient.talking || patient.penetratingTorsoInjury) return Code.P1
+    return Code.P2
   }
 
   getFeedback (p: Patient): Feedback[] {
@@ -105,26 +65,18 @@ class Start extends TriageAlgorithm {
       feedback.push(Feedback.CODE_INCORRECT)
     } else feedback.push(Feedback.CODE_CORRECT)
 
-    if (p.bleeding) {
-      if (p.bleedingControlled === true) feedback.push(Feedback.BLEEDING_CONTROLLED)
-      else feedback.push(Feedback.BLEEDING_NOT_CONTROLLED)
-    } else if (p.bleedingControlled === true) feedback.push(Feedback.BLEEDING_NOT_NEEDED)
+    if (!p.breathing) feedback.push(Feedback.NOT_BREATHING)
+    else if (p.canWalk) feedback.push(Feedback.WALKING_P3)
+    else if (p.age < 2) feedback.push(Feedback.AGE_UNDER_TWO_P1)
+    else if (p.severeBleeding) feedback.push(Feedback.SEVERE_BLEEDING_P1)
+    else if (!p.talking) feedback.push(Feedback.NOT_TALKING_P1)
+    else if (p.penetratingTorsoInjury) feedback.push(Feedback.PENETRATING_INJURY_P1)
+    else feedback.push(Feedback.OTHERWISE_P2)
 
-    if (p.airwayObstruction || p.code === Code.EXPECTANT) {
-      if (p.airwayCleared === true) feedback.push(Feedback.AIRWAY_CLEARED)
-      else if (p.respiratoryRate !== undefined) feedback.push(Feedback.AIRWAY_NOT_CLEARED) // Wait until respiratory rate is checked
-    } else if (p.airwayCleared === true) feedback.push(Feedback.AIRWAY_NOT_NEEDED)
-
-    if (p.code === Code.MINOR && (p.respiratoryRate !== undefined || p.obeys !== undefined || p.capillaryRefill !== undefined)) {
-      feedback.push(Feedback.PROGRESS_STOP_MOBILTY)
-    } else if (p.respiratoryRate !== undefined && (p.respiratoryRate === 0 || p.respiratoryRate > 30 || p.airwayObstruction) && (p.obeys !== undefined || p.capillaryRefill !== undefined)) {
-      feedback.push(Feedback.PROGRESS_STOP_RESPIRATORY_RATE)
-    } else if (p.capillaryRefill !== undefined && p.capillaryRefill >= 2 && p.obeys !== undefined) {
-      feedback.push(Feedback.PROGRESS_STOP_CAPILLARY_REFILL)
-    }
+    if (p.severeBleeding) feedback.push(Feedback.SEVERE_BLEEDING_ACTION)
 
     return feedback
   }
 }
 
-export const START = new Start()
+export const TST = new TriageScoringTool()

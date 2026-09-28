@@ -1,6 +1,6 @@
 import { type FunctionComponent } from 'preact'
 import { patientById, useAppDispatch, useAppSelector } from '../../store'
-import { checkCapillaryRefill, checkMentalStatus, checkRespiratoryRate, checkWalking, clearAirway, controlBleeding, setCode } from '../../store/patients'
+import { setCode } from '../../store/patients'
 import { type Code } from '../../algorithm'
 import TagRow from './TagRow'
 import TagCell from './TagCell'
@@ -17,10 +17,10 @@ const TagCodeSelector: FunctionComponent<{ value?: number, onChange: (code: Code
 
   return (
     <div className="grid grid-cols-4 h-20 text-white cursor-pointer">
-      <TagCodeButton onClick={onChange} value={4} checked={value === 4} title={t('Code black')} className="bg-gray-900" />
-      <TagCodeButton onClick={onChange} value={3} checked={value === 3} title={t('Code red')} className="bg-red-600" />
-      <TagCodeButton onClick={onChange} value={2} checked={value === 2} title={t('Code yellow')} className="bg-amber-400" />
-      <TagCodeButton onClick={onChange} value={1} checked={value === 1} title={t('Code green')} className="bg-green-500" />
+      <TagCodeButton onClick={onChange} value={4} checked={value === 4} title={t('Not Breathing (Silver)')} className="bg-gray-400" />
+      <TagCodeButton onClick={onChange} value={3} checked={value === 3} title={t('P1 (Red)')} className="bg-red-600" />
+      <TagCodeButton onClick={onChange} value={2} checked={value === 2} title={t('P2 (Yellow)')} className="bg-amber-400" />
+      <TagCodeButton onClick={onChange} value={1} checked={value === 1} title={t('P3 (Green)')} className="bg-green-600" />
     </div>
   )
 }
@@ -36,10 +36,10 @@ const TriageTag: FunctionComponent = () => {
     dispatch(setCode([currentPatientId, code]))
   }, [currentPatientId, dispatch])
 
-  useHotkey('1', () => { changeCode(3) }) // T1 = red
+  useHotkey('1', () => { changeCode(3) }) // P1 = red
   useHotkey('2', () => { changeCode(2) })
-  useHotkey('3', () => { changeCode(1) }) // T3 = green
-  useHotkey('4', () => { changeCode(4) }) // T4 = black
+  useHotkey('3', () => { changeCode(1) }) // P3 = green
+  useHotkey('4', () => { changeCode(4) }) // Not breathing = silver
 
   if (currentPatientId === undefined) return <></>
   if (patient === undefined) return <></>
@@ -52,47 +52,31 @@ const TriageTag: FunctionComponent = () => {
           <TagCell title={t('Age')} span={3}>{t('{{age}} yrs', { age: patient.age })}</TagCell>
         </TagRow>
         <TagRow>
-          <TagCell title={t('Hemorrhage')} span={6}>
-            {patient.bleedingControlled === true && <span className="text-green-600">{t('Controlled')}</span>}
-            {patient.bleeding && patient.bleedingControlled !== true && <span className="text-red-600">{t('Bleeding')}</span>}
-            {!patient.bleeding && patient.bleedingControlled !== true && t('Not bleeding')}
+          <TagCell title={t('Breathing')} span={4}>
+            {patient.breathing ? t('Yes') : t('No')}
           </TagCell>
-          <TagCell title={t('Mobility')} span={6}>
-            {patient.walking === undefined && '--'}
-            {patient.walking === true && t('Walking')}
-            {patient.walking === false && t('Not walking')}
+          <TagCell title={t('Can walk?')} span={4}>
+            {patient.canWalk ? t('Yes') : t('No')}
           </TagCell>
-        </TagRow>
-        <TagRow>
-          <TagCell title={t('Airway')} span={4}>
-            {patient.airwayCleared === undefined ? '--' : t('In place')}
-          </TagCell>
-          <TagCell title={t('Respiratory rate')} span={4}>
-            {patient.respiratoryRate === undefined ? '--' : patient.respiratoryRate}
-          </TagCell>
-          <TagCell title={t('Capillary refill')} span={4}>
-            {patient.capillaryRefill === undefined ? '--' : `${patient.capillaryRefill.toFixed(2)}s`}
+          <TagCell title={t('Severe bleeding?')} span={4}>
+            {patient.severeBleeding ? t('Yes') : t('No')}
           </TagCell>
         </TagRow>
         <TagRow>
-          <TagCell title={t('Mental status')}>
-            {patient.obeys === undefined && '--'}
-            {patient.obeys === true && t('Obeys')}
-            {patient.obeys === false && t('Doesn\'t obey')}
+          <TagCell title={t('Talking?')} span={6}>
+            {patient.talking ? t('Yes') : t('No')}
+          </TagCell>
+          <TagCell title={t('Penetrating injury to neck, chest, armpits, back, abdomen, groin, or buttocks?')} span={6}>
+            {patient.penetratingTorsoInjury ? t('Yes') : t('No')}
           </TagCell>
         </TagRow>
-        <div className='flex flex-1 h-20 text-white'>
-          <TagTool title={t('Check mobility')} id='check-mobility' n='directions_walk' onClick={() => dispatch(checkWalking(patient.id))} />
-          <TagTool title={t('Control bleeding')} id='control-bleed' n='healing' onClick={() => dispatch(controlBleeding(patient.id))} />
-          <TagTool title={t('Respiratory rate')} id='check-rr' n='respiratory_rate' onClick={() => dispatch(checkRespiratoryRate(patient.id))} />
-          <TagTool title={t('Place airway')} id='place-airway' n='ent' onClick={() => dispatch(clearAirway(patient.id))} />
-          <TagTool title={t('Capillary refill')} id='check-capillary-refill' n='ecg' onClick={() => dispatch(checkCapillaryRefill(patient.id))} />
-          <TagTool title={t('Mental status')} id='check-mental-statumobilitys' n='cognition' onClick={() => dispatch(checkMentalStatus(patient.id))} />
-        </div>
+        {patient.severeBleeding &&
+          <p className="p-2 text-red-700 font-bold">{t('Apply pressure / tourniquet / packing')}</p>
+        }
         <TagCodeSelector value={patient.assignedCode} onChange={(code: Code) => dispatch(setCode([patient.id, code]))} />
       </Card >
       <p className="text-center opacity-75 mt-4 mb-3 hidden lg:block">
-        <Trans t={t}>Use <Kbd>←</Kbd> and <Kbd>→</Kbd> to switch patients and keys <Kbd>1</Kbd> to <Kbd>4</Kbd> to assign codes</Trans>
+        <Trans t={t}>Use <Kbd>←</Kbd> and <Kbd>→</Kbd> to switch patients and keys <Kbd>1</Kbd> to <Kbd>4</Kbd> to assign priorities</Trans>
       </p>
     </>
   )

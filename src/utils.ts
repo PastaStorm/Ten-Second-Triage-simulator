@@ -17,11 +17,11 @@ export const cx = (...args: unknown[]): string => args
   .trim()
 
 const colors = {
-  0: ['text-gray-400', 'border-gray-400'],
+  0: ['text-gray-500', 'border-gray-500'],
   1: ['text-green-600', 'border-green-600'],
   2: ['text-amber-400', 'border-amber-400'],
   3: ['text-red-600', 'border-red-600'],
-  4: ['text-gray-800', 'border-gray-800']
+  4: ['text-gray-400', 'border-gray-400']
 } as const
 
 export const codeToColor = (code: Code): readonly [string, string] => colors[code]
@@ -30,10 +30,19 @@ const emojis = {
   1: '🟢',
   2: '🟡',
   3: '🔴',
-  4: '⚫️'
+  4: '⚪️'
 }
 
 export const codeToEmoji = (code: Code): string => emojis[code]
+
+const codeLabels = {
+  1: 'P3 (Green)',
+  2: 'P2 (Yellow)',
+  3: 'P1 (Red)',
+  4: 'Not Breathing (Silver)'
+} as const
+
+export const codeToLabel = (code: Code): string => codeLabels[code]
 
 export const pct = (n: number): string => {
   if (isNaN(n)) n = 0

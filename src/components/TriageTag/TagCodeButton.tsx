@@ -7,14 +7,15 @@ interface TagCodeButtonProps { value: Code, className?: string, title: string, c
 
 const TagCodeButton: FunctionComponent<TagCodeButtonProps> = ({ value, className, title, checked, onClick }) => {
   const cls = cx(
-    'flex col-span-1 group appearance-none transition duration-500 cursor-pointer',
+    'flex flex-col col-span-1 items-center justify-center gap-1 appearance-none transition duration-500 cursor-pointer',
     className
   )
 
   return (
-    <input type="radio" name="triage-code" value={value} checked={checked} aria-label={title} className={cls} onClick={() => { onClick(value) }}>
-      <Icon n='check_circle' className='hidden group-checked:block text-4xl md:text-6xl block m-auto' />
-    </input>
+    <button type="button" value={value} aria-label={title} aria-pressed={checked} className={cls} onClick={() => { onClick(value) }}>
+      {checked && <Icon n='check_circle' className='text-3xl leading-none' />}
+      <span className='text-xs font-bold text-center leading-tight px-1'>{title}</span>
+    </button>
   )
 }
 

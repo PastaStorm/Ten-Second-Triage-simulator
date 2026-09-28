@@ -10,8 +10,7 @@ const InfoModal: FunctionComponent = () => (
       <p className="mb-2">
         Welcome to <strong>⛑ Triage Simulator</strong>! This app allows you to
         learn and gain familiarity with triage protocols for mass casualty
-        incidents. It currently supports the START triage algorithm (Benson et
-        al, 1996).
+        incidents. It uses the NHS Triage &amp; Scoring Tool (TST).
       </p>
       <h3 className="text-2xl font-black mt-4 mb-2">How it works</h3>
       <ol className="mb-2 pl-2 list-disc list-inside">
@@ -27,10 +26,12 @@ const InfoModal: FunctionComponent = () => (
           colour will update to reflect your choice
         </li>
         <li>
-          Use the buttons in the triage tag to check for vital signs or to
-          perform actions, such as placing an airway. The triage tag will update
-          with the values you have observed. Once you have reached a conclusion,
-          assign a code to the patient by clicking on the appropriate colour
+          Review the patient findings on the triage tag and assign a priority.
+          Not breathing is Silver. Otherwise, can walk is P3 (Green); age under
+          2, severe bleeding, not talking, or talking with a penetrating torso
+          injury to the neck, chest, armpits, back, abdomen, groin, or buttocks
+          is P1 (Red); all other patients are P2 (Yellow). For severe bleeding,
+          apply pressure, a tourniquet, or packing.
         </li>
         <li>
           You can use <Icon n="visibility" className='text-xl/6 align-bottom' /> in

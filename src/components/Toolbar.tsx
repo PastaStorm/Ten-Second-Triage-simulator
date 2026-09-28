@@ -77,7 +77,7 @@ const Toolbar: FunctionComponent = () => {
 
   return (
     <div className="flex flex-row items-center gap-2 mb-4">
-      <span className="text-lg font-black flex-1">⛑ Triage Simulator</span>
+      <span className="text-lg font-black flex-1">⛑ NHS TST Simulator</span>
       <ToolbarIcon n="info" title={t('About')} onClick={openInfo} />
       <div className="relative">
         <ToolbarIcon n="language" title={t('Change language')} onClick={() => { setDropdownOpen(!dropdownOpen) }} />
