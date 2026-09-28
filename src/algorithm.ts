@@ -33,6 +33,7 @@ export enum Feedback {
   SEVERE_BLEEDING_ACTION,
   NOT_BREATHING_ACTION,
   NOT_TALKING_P1_ACTION,
+  SEVERE_BLEEDING_WALKING,
 }
 
 class TriageScoringTool {
@@ -71,13 +72,14 @@ class TriageScoringTool {
     else if (p.canWalk) feedback.push(Feedback.WALKING_P3)
     else if (p.age < 2) feedback.push(Feedback.AGE_UNDER_TWO_P1)
     else if (p.severeBleeding) feedback.push(Feedback.SEVERE_BLEEDING_P1)
-    else if (!p.talking) feedback.push(Feedback.NOT_TALKING_P1)
+    else if (!p.talking) feedback.push(Feedback.NOT_TAKING_P1)
     else if (p.penetratingTorsoInjury) feedback.push(Feedback.PENETRATING_INJURY_P1)
     else feedback.push(Feedback.OTHERWISE_P2)
 
     if (p.severeBleeding) feedback.push(Feedback.SEVERE_BLEEDING_ACTION)
     if (!p.breathing) feedback.push(Feedback.NOT_BREATHING_ACTION)
     if (!p.talking && p.breathing) feedback.push(Feedback.NOT_TALKING_P1_ACTION)
+    if (p.severeBleeding && p.canWalk) feedback.push(Feedback.SEVERE_BLEEDING_WALKING)
 
     return feedback
   }
