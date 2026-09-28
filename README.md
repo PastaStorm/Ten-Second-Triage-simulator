@@ -9,7 +9,7 @@ categories.
 
 Adapted by PastaStorm, 2026, for the NHS TST.
 
-You can see a demo deployment [here]([https://triage.pages.dev](https://ten-second-triage-simulator-v2.pastastorm.workers.dev/#)).
+You can see a demo deployment [here] ((https://ten-second-triage-simulator-v2.pastastorm.workers.dev/#)).
 
 ## Installation
 
