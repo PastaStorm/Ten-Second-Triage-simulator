@@ -43,7 +43,7 @@ class TriageScoringTool {
     const patient = {
       id: id ?? randomInt(0, 500),
       age,
-      canWalk: randomBool(0.35),
+      canWalk: breathing ? randomBool(0.35) : false,
       severeBleeding: breathing ? randomBool(0.2) : false,
       talking: breathing ? randomBool(0.85) : false,
       breathing,
