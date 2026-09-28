@@ -33,6 +33,8 @@ const FeedbackCard: FunctionComponent = () => {
       case Feedback.PENETRATING_INJURY_P1: return t('Talking with a penetrating injury to the neck, chest, armpits, back, abdomen, groin, or buttocks: classify as P1 (Red).')
       case Feedback.OTHERWISE_P2: return t('No P1 or P3 criteria apply: classify as P2 (Yellow).')
       case Feedback.SEVERE_BLEEDING_ACTION: return t('Apply pressure / tourniquet / packing')
+      case Feedback.NOT_BREATHING_ACTION: return t('Place in recovery position or CPR if resources allow.')
+      case Feedback.NOT_TALKING_P1_ACTION: return t('Place in recovery position.')
     }
   }
 
