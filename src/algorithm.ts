@@ -39,13 +39,14 @@ export enum Feedback {
 class TriageScoringTool {
   newPatient (id?: number): Patient {
     const age = randomInt(0, 80)
+    const breathing = randomBool(0.97)
     const patient = {
       id: id ?? randomInt(0, 500),
       age,
       canWalk: randomBool(0.35),
-      severeBleeding: randomBool(0.2),
-      talking: randomBool(0.85),
-      breathing: randomBool(0.97),
+      severeBleeding: breathing ? randomBool(0.2) : false,
+      talking: breathing ? randomBool(0.85) : false,
+      breathing,
       penetratingTorsoInjury: randomBool(0.15),
       code: Code.P2
     }
