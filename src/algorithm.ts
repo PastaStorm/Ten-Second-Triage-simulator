@@ -77,7 +77,7 @@ class TriageScoringTool {
 
     if (p.severeBleeding) feedback.push(Feedback.SEVERE_BLEEDING_ACTION)
     if (!p.breathing) feedback.push(Feedback.NOT_BREATHING_ACTION)
-    if (!p.talking) feedback.push(Feedback.NOT_TALKING_P1_ACTION)
+    if (!p.talking && p.breathing) feedback.push(Feedback.NOT_TALKING_P1_ACTION)
 
     return feedback
   }
