@@ -17,10 +17,10 @@ const TagCodeSelector: FunctionComponent<{ value?: number, onChange: (code: Code
 
   return (
     <div className="grid grid-cols-4 h-20 text-white cursor-pointer">
-      <TagCodeButton onClick={onChange} value={4} checked={value === 4} title={t('Not Breathing (Silver)')} className="bg-gray-400" />
       <TagCodeButton onClick={onChange} value={3} checked={value === 3} title={t('P1 (Red)')} className="bg-red-600" />
       <TagCodeButton onClick={onChange} value={2} checked={value === 2} title={t('P2 (Yellow)')} className="bg-amber-400" />
       <TagCodeButton onClick={onChange} value={1} checked={value === 1} title={t('P3 (Green)')} className="bg-green-600" />
+      <TagCodeButton onClick={onChange} value={4} checked={value === 4} title={t('Not Breathing (Silver)')} className="bg-gray-400" />
     </div>
   )
 }
