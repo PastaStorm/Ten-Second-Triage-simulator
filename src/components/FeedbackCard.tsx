@@ -35,8 +35,8 @@ const FeedbackCard: FunctionComponent = () => {
       case Feedback.SEVERE_BLEEDING_ACTION: return t('Apply pressure / tourniquet / packing')
       case Feedback.NOT_BREATHING_ACTION: return t('Place in recovery position or CPR if resources allow.')
       case Feedback.NOT_TALKING_P1_ACTION: return t('Place in recovery position.')
-      case Feedback.SEVERE_BLEEDING_WALKING: return t('Technically a P3 patient but depending on the severity of the bleed a P1 might be more appropriate')
-      case Feedback.PENETRATING_INJURY_WALKING: return t('Technically a P3 patient but depending on the severity of the wound P1 may be more appropriate.')
+      case Feedback.SEVERE_BLEEDING_WALKING: return t('Clearly critically injured casualties who are walking should be sat down and treated as not walking. Ref: NARU TST Non Clinical Responders Supplementary Information.')
+      case Feedback.PENETRATING_INJURY_WALKING: return t('Clearly critically injured casualties who are walking should be sat down and treated as not walking. Ref: NARU TST Non Clinical Responders Supplementary Information.')
     }
   }
 
