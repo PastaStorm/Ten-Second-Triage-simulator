@@ -17,6 +17,14 @@ export interface Patient {
   talking: boolean
   breathing: boolean
   penetratingTorsoInjury: boolean
+  revealedWalking?: boolean
+  revealedBleeding?: boolean
+  revealedTalking?: boolean
+  revealedPenetrating?: boolean
+  revealedBreathing?: boolean
+  actionBleeding?: boolean
+  actionRecovery?: boolean
+  actionCPR?: boolean
 }
 
 export enum Feedback {
@@ -35,6 +43,8 @@ export enum Feedback {
   NOT_TALKING_P1_ACTION,
   SEVERE_BLEEDING_WALKING,
   PENETRATING_INJURY_WALKING,
+  ACTION_INCORRECT,
+  MISSING_ACTION,
 }
 
 class TriageScoringTool {
@@ -62,13 +72,41 @@ class TriageScoringTool {
     return Code.P2
   }
 
+  getRequiredActions (patient: Patient): { bleeding: boolean, recovery: boolean, cpr: boolean } {
+    return {
+      bleeding: patient.severeBleeding,
+      recovery: (!patient.talking && patient.breathing) || !patient.breathing,
+      cpr: !patient.breathing
+    }
+  }
+
+  validateActions (patient: Patient): boolean {
+    const required = this.getRequiredActions(patient)
+
+    if (required.bleeding && !patient.actionBleeding) return false
+    if (required.recovery && !patient.actionRecovery) return false
+    if (required.cpr && !patient.actionCPR) return false
+
+    if (!required.bleeding && patient.actionBleeding) return false
+    if (!required.recovery && patient.actionRecovery) return false
+    if (!required.cpr && patient.actionCPR) return false
+
+    return true
+  }
+
   getFeedback (p: Patient): Feedback[] {
     const feedback = []
 
     if (p.assignedCode === undefined) feedback.push(Feedback.CODE_NOT_ASSIGNED)
     else if (p.assignedCode !== p.code) {
       feedback.push(Feedback.CODE_INCORRECT)
-    } else feedback.push(Feedback.CODE_CORRECT)
+    } else {
+      if (!this.validateActions(p)) {
+        feedback.push(Feedback.CODE_INCORRECT)
+      } else {
+        feedback.push(Feedback.CODE_CORRECT)
+      }
+    }
 
     if (!p.breathing) feedback.push(Feedback.NOT_BREATHING)
     else if (p.canWalk) feedback.push(Feedback.WALKING_P3)
