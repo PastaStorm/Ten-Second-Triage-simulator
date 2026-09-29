@@ -3,12 +3,14 @@ import { cx } from '../../utils'
 import Icon from '../Icon'
 import Tooltip from '../Tooltip'
 
-interface TagToolProps { n: string, title: string, id: string, onClick?: () => void }
+interface TagToolProps { n: string, title: string, id: string, onClick?: () => void, active?: boolean, bgColor?: string }
 
-const TagTool: FunctionComponent<TagToolProps> = ({ n, title, id, onClick }) => {
+const TagTool: FunctionComponent<TagToolProps> = ({ n, title, id, onClick, active, bgColor }) => {
   const cls = cx(
-    'flex grow bg-blue-600 transition duration-500',
-    'hover:bg-blue-800 active:bg-blue-800'
+    'flex grow transition duration-500',
+    active ? (bgColor ?? 'bg-blue-600') : 'bg-gray-300',
+    !active && 'hover:bg-gray-400 active:bg-gray-400',
+    active && 'hover:bg-opacity-80 active:bg-opacity-80'
   )
   const tooltipId = `${id}-tooltip`
 
