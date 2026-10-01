@@ -37,6 +37,8 @@ const FeedbackCard: FunctionComponent = () => {
       case Feedback.NOT_TALKING_P1_ACTION: return t('Place in recovery position.')
       case Feedback.SEVERE_BLEEDING_WALKING: return t('Clearly critically injured casualties who are walking should be sat down and treated as not walking. Ref: NARU TST Non Clinical Responders Supplementary Information.')
       case Feedback.PENETRATING_INJURY_WALKING: return t('Clearly critically injured casualties who are walking should be sat down and treated as not walking. Ref: NARU TST Non Clinical Responders Supplementary Information.')
+      case Feedback.ACTION_INCORRECT: return t('You failed to perform the correct action for this patient.')
+      case Feedback.MISSING_ACTION: return t('You failed to complete the required action for this patient.')
     }
   }
 
