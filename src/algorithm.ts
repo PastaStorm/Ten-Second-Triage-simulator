@@ -59,7 +59,15 @@ class TriageScoringTool {
       talking: breathing ? randomBool(0.85) : false,
       breathing,
       penetratingTorsoInjury: randomBool(0.15),
-      code: Code.P2
+      code: Code.P2,
+      revealedWalking: false,
+      revealedBleeding: false,
+      revealedTalking: false,
+      revealedPenetrating: false,
+      revealedBreathing: false,
+      actionBleeding: false,
+      actionRecovery: false,
+      actionCPR: false
     }
 
     return { ...patient, code: this.getCode(patient) }
