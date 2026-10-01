@@ -89,7 +89,7 @@ const TriageTag: FunctionComponent = () => {
           <TagTool title={t('Check penetrating injury')} id='reveal-penetrating' n='cut' onClick={() => toggleRevealCharacteristic('Penetrating')} active={patient.revealedPenetrating} bgColor='bg-blue-600' />
         </div>
         <div className='grid grid-cols-4 h-20 text-white gap-1'>
-          <TagTool title={t('Check breathing')} id='reveal-breathing' n='lungs' onClick={() => toggleRevealCharacteristic('Breathing')} active={patient.revealedBreathing} bgColor='bg-blue-600' />
+          <TagTool title={t('Check breathing')} id='reveal-breathing' n='air' onClick={() => toggleRevealCharacteristic('Breathing')} active={patient.revealedBreathing} bgColor='bg-blue-600' />
           <TagTool title={t('Apply pressure / tourniquet / packing')} id='action-bleeding' n='medical_services' onClick={() => toggleActionButton('Bleeding')} active={patient.actionBleeding} bgColor={patient.actionBleeding ? 'bg-red-600' : 'bg-gray-300'} />
           <TagTool title={t('Place in recovery position')} id='action-recovery' n='elderly' onClick={() => toggleActionButton('Recovery')} active={patient.actionRecovery} bgColor={patient.actionRecovery ? 'bg-red-600' : 'bg-gray-300'} />
           <TagTool title={t('CPR if resources allow')} id='action-cpr' n='favorite' onClick={() => toggleActionButton('CPR')} active={patient.actionCPR} bgColor={patient.actionCPR ? 'bg-red-600' : 'bg-gray-300'} />
