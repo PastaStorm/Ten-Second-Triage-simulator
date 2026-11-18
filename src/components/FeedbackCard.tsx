@@ -66,7 +66,7 @@ const FeedbackCard: FunctionComponent = () => {
   const lines: string[] = []
   if (feedback.length > 0) {
     if (reasonIndex > 0) {
-      lines.push(`${feedbackToString(feedback)}: ${feedbackToString(feedback[reasonIndex])}`)
+      lines.push(`${feedbackToString(feedback[0])}: ${feedbackToString(feedback[reasonIndex])}`)
       feedback.forEach((fb, idx) => {
         if (idx !== 0 && idx !== reasonIndex) {
           lines.push(feedbackToString(fb))
