@@ -40,6 +40,7 @@ const FeedbackCard: FunctionComponent = () => {
       case Feedback.NOT_TALKING_P1_ACTION_CORRECT: return t('You correctly placed in recovery position.')
       case Feedback.SEVERE_BLEEDING_WALKING: return t('Although P3 is technically correct; clearly critically injured casualties who are walking should be sat down and triaged/treated as P1. Ref: NARU TST Non Clinical Responders Supplementary Information.')
       case Feedback.PENETRATING_INJURY_WALKING: return t('Although P3 is technically correct; clearly critically injured casualties who are walking should be sat down and triaged/treated as P1. Ref: NARU TST Non Clinical Responders Supplementary Information.')
+      case Feedback.WALKING_NOT_TALKING: return t('A walking patient who isn\'t speaking is unlikely, it can occasionally happen such as someone in severe shock, deaf, or mute.')
       case Feedback.ACTION_INCORRECT: return t('You failed to perform the correct action for this patient.')
       case Feedback.MISSING_ACTION: return t('You failed to complete the required action for this patient.')
     }
@@ -64,7 +65,7 @@ const FeedbackCard: FunctionComponent = () => {
   const lines: string[] = []
   if (feedback.length > 0) {
     if (reasonIndex > 0) {
-      lines.push(`${feedbackToString(feedback[0])}: ${feedbackToString(feedback[reasonIndex])}`)
+      lines.push(`${feedbackToString(feedback)}: ${feedbackToString(feedback[reasonIndex])}`)
       feedback.forEach((fb, idx) => {
         if (idx !== 0 && idx !== reasonIndex) {
           lines.push(feedbackToString(fb))
