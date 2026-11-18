@@ -76,7 +76,7 @@ const TriageTag: FunctionComponent = () => {
           <TagCell title={t('Talking?')} span={4}>
             {patient.revealedTalking ? (patient.talking ? t('Yes') : t('No')) : '--'}
           </TagCell>
-          <TagCell title={t('Penetrating injury to neck, chest, armpits, back, abdomen, groin, or buttocks?')} span={8}>
+          <TagCell title={t('Torso penetrating injury; front or rear?')} span={8}>
             {patient.revealedPenetrating ? (patient.penetratingTorsoInjury ? t('Yes') : t('No')) : '--'}
           </TagCell>
         </TagRow>
@@ -114,4 +114,3 @@ const TriageTag: FunctionComponent = () => {
 }
 
 export default TriageTag
-
