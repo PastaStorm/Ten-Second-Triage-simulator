@@ -54,8 +54,6 @@ const TriageTag: FunctionComponent = () => {
   if (currentPatientId === undefined) return <></>
   if (patient === undefined) return <></>
 
-  
-
   return (
     <>
       <Card className='h-min'>
@@ -75,14 +73,14 @@ const TriageTag: FunctionComponent = () => {
           </TagCell>
         </TagRow>
         <TagRow>
-          <TagCell title={t('Talking?')} span={6}>
+          <TagCell title={t('Talking?')} span={4}>
             {patient.revealedTalking ? (patient.talking ? t('Yes') : t('No')) : '--'}
           </TagCell>
-          <TagCell title={t('Penetrating injury to neck, chest, armpits, back, abdomen, groin, or buttocks?')} span={6}>
+          <TagCell title={t('Penetrating injury to neck, chest, armpits, back, abdomen, groin, or buttocks?')} span={8}>
             {patient.revealedPenetrating ? (patient.penetratingTorsoInjury ? t('Yes') : t('No')) : '--'}
           </TagCell>
         </TagRow>
-        <div className='grid grid-cols-4 h-20 text-white gap-1'>
+        <div className='grid grid-cols-4 h-20 text-white gap-1 mt-4 mb-1'>
           <TagTool title={t('Check walking')} id='reveal-walking' n='directions_walk' onClick={() => toggleRevealCharacteristic('Walking')} active={patient.revealedWalking} bgColor='bg-blue-600' />
           <TagTool title={t('Check severe bleeding')} id='reveal-bleeding' n='healing' onClick={() => toggleRevealCharacteristic('Bleeding')} active={patient.revealedBleeding} bgColor='bg-blue-600' />
           <TagTool title={t('Check talking')} id='reveal-talking' n='record_voice_over' onClick={() => toggleRevealCharacteristic('Talking')} active={patient.revealedTalking} bgColor='bg-blue-600' />
