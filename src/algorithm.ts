@@ -119,7 +119,6 @@ class TriageScoringTool {
       feedback.push(Feedback.CODE_CORRECT)
     }
 
-    if (actionCheck.missing) feedback.push(Feedback.MISSING_ACTION)
     if (actionCheck.incorrect) feedback.push(Feedback.ACTION_INCORRECT)
 
     if (!p.breathing) feedback.push(Feedback.NOT_BREATHING)
