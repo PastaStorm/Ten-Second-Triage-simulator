@@ -47,7 +47,33 @@ const FeedbackCard: FunctionComponent = () => {
 
   if (currentPatientId === undefined) return <></>
   if (patient === undefined) return <></>
+
   const feedback = TST.getFeedback(patient)
+  const reasonIndex = feedback.findIndex(fb => [
+    Feedback.NOT_BREATHING,
+    Feedback.WALKING_P3,
+    Feedback.AGE_UNDER_TWO_P1,
+    Feedback.SEVERE_BLEEDING_P1,
+    Feedback.NOT_TALKING_P1,
+    Feedback.PENETRATING_INJURY_P1,
+    Feedback.OTHERWISE_P2,
+    Feedback.SEVERE_BLEEDING_WALKING,
+    Feedback.PENETRATING_INJURY_WALKING
+  ].includes(fb))
+
+  const lines: string[] = []
+  if (feedback.length > 0) {
+    if (reasonIndex > 0) {
+      lines.push(`${feedbackToString(feedback[0])}: ${feedbackToString(feedback[reasonIndex])}`)
+      feedback.forEach((fb, idx) => {
+        if (idx !== 0 && idx !== reasonIndex) {
+          lines.push(feedbackToString(fb))
+        }
+      })
+    } else {
+      feedback.forEach(fb => lines.push(feedbackToString(fb)))
+    }
+  }
 
   return (
     <Card className="mt-3">
@@ -67,7 +93,7 @@ const FeedbackCard: FunctionComponent = () => {
       {revealFeedback &&
         <div className="p-2">
           <ol className="list-name text-lg">
-            {feedback.map((e, i) => <li key={i}>{feedbackToString(e)}</li>)}
+            {lines.map((line, i) => <li key={i}>{line}</li>)}
           </ol>
         </div>
       }
