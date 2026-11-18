@@ -46,6 +46,7 @@ export enum Feedback {
   NOT_TALKING_P1_ACTION_CORRECT,
   SEVERE_BLEEDING_WALKING,
   PENETRATING_INJURY_WALKING,
+  WALKING_NOT_TALKING,
   ACTION_INCORRECT,
   MISSING_ACTION,
 }
@@ -153,6 +154,10 @@ class TriageScoringTool {
       } else {
         feedback.push(Feedback.NOT_TALKING_P1_ACTION)
       }
+    }
+
+    if (p.canWalk && !p.talking) {
+      feedback.push(Feedback.WALKING_NOT_TALKING)
     }
 
     return feedback
