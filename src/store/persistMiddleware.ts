@@ -1,6 +1,6 @@
 import { type TypedStartListening, createListenerMiddleware, isAnyOf } from '@reduxjs/toolkit'
 import { type AppDispatch, type RootState } from '.'
-import { addPatient, clearPatients, removePatient, setCode } from './patients'
+import { addPatient, clearPatients, removePatient, setCode, toggleAction, toggleReveal } from './patients'
 import { setLocale } from './ui'
 import { pick } from '../utils'
 
@@ -12,7 +12,7 @@ export const persistMiddleware = createListenerMiddleware()
 export const startListening = persistMiddleware.startListening as TypedStartListening<RootState, AppDispatch>
 
 startListening({
-  matcher: isAnyOf(addPatient, removePatient, clearPatients, setCode),
+  matcher: isAnyOf(addPatient, removePatient, clearPatients, setCode, toggleReveal, toggleAction),
   effect: (_, listener) => {
     localStorage.setItem(LS_PATIENTS, JSON.stringify(listener.getState().patients))
   }
