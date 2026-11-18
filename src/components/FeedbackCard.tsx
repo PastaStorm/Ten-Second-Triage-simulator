@@ -64,7 +64,8 @@ const FeedbackCard: FunctionComponent = () => {
   const lines: string[] = []
   if (feedback.length > 0) {
     if (reasonIndex > 0) {
-      lines.push(`${feedbackToString(feedback)}: ${feedbackToString(feedback[reasonIndex])}`)
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      lines.push(`${feedbackToString(feedback.at(0)!)}: ${feedbackToString(feedback[reasonIndex])}`)
       feedback.forEach((fb, idx) => {
         if (idx !== 0 && idx !== reasonIndex) {
           lines.push(feedbackToString(fb))
