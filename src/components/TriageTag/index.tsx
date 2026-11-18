@@ -7,10 +7,9 @@ import TagCell from './TagCell'
 import TagTool from './TagTool'
 import TagCodeButton from './TagCodeButton'
 import Card from '../Card'
-import { Trans, useTranslation } from 'react-i18next'
+import { useTranslation } from 'react-i18next'
 import { useCallback } from 'preact/hooks'
 import { useHotkey } from '../../hooks'
-import Kbd from '../Kbd'
 
 const TagCodeSelector: FunctionComponent<{ value?: number, onChange: (code: Code) => void }> = ({ value, onChange }) => {
   const { t } = useTranslation()
@@ -55,61 +54,56 @@ const TriageTag: FunctionComponent = () => {
   if (patient === undefined) return <></>
 
   return (
-    <>
-      <Card className='h-min'>
-        <TagRow border>
-          <TagCell title={t('Triage tag')} span={9}>#{patient.id.toString().padStart(4, '0')}</TagCell>
-          <TagCell title={t('Age')} span={3}>{t('{{age}} yrs', { age: patient.age })}</TagCell>
-        </TagRow>
-        <TagRow>
-          <TagCell title={t('Breathing')} span={4}>
-            {patient.revealedBreathing ? (patient.breathing ? t('Yes') : t('No')) : '--'}
-          </TagCell>
-          <TagCell title={t('Can walk?')} span={4}>
-            {patient.revealedWalking ? (patient.canWalk ? t('Yes') : t('No')) : '--'}
-          </TagCell>
-          <TagCell title={t('Severe bleeding?')} span={4}>
-            {patient.revealedBleeding ? (patient.severeBleeding ? t('Yes') : t('No')) : '--'}
-          </TagCell>
-        </TagRow>
-        <TagRow>
-          <TagCell title={t('Talking?')} span={4}>
-            {patient.revealedTalking ? (patient.talking ? t('Yes') : t('No')) : '--'}
-          </TagCell>
-          <TagCell title={t('Torso penetrating injury; front or rear?')} span={8}>
-            {patient.revealedPenetrating ? (patient.penetratingTorsoInjury ? t('Yes') : t('No')) : '--'}
-          </TagCell>
-        </TagRow>
+    <Card className='h-min'>
+      <TagRow border>
+        <TagCell title={t('Triage tag')} span={9}>#{patient.id.toString().padStart(4, '0')}</TagCell>
+        <TagCell title={t('Age')} span={3}>{t('{{age}} yrs', { age: patient.age })}</TagCell>
+      </TagRow>
+      <TagRow>
+        <TagCell title={t('Breathing')} span={4}>
+          {patient.revealedBreathing ? (patient.breathing ? t('Yes') : t('No')) : '--'}
+        </TagCell>
+        <TagCell title={t('Can walk?')} span={4}>
+          {patient.revealedWalking ? (patient.canWalk ? t('Yes') : t('No')) : '--'}
+        </TagCell>
+        <TagCell title={t('Severe bleeding?')} span={4}>
+          {patient.revealedBleeding ? (patient.severeBleeding ? t('Yes') : t('No')) : '--'}
+        </TagCell>
+      </TagRow>
+      <TagRow>
+        <TagCell title={t('Talking?')} span={4}>
+          {patient.revealedTalking ? (patient.talking ? t('Yes') : t('No')) : '--'}
+        </TagCell>
+        <TagCell title={t('Torso penetrating injury; front or rear?')} span={8}>
+          {patient.revealedPenetrating ? (patient.penetratingTorsoInjury ? t('Yes') : t('No')) : '--'}
+        </TagCell>
+      </TagRow>
 
-        <h4 className='text-xs font-bold uppercase tracking-wider text-gray-500 mt-4 mb-1 px-1'>
-          {t('Characteristics')}
-        </h4>
-        <div className='grid grid-cols-5 h-20 text-white gap-1 mb-2'>
-          <TagTool title={t('Check walking')} id='reveal-walking' n='directions_walk' onClick={() => toggleRevealCharacteristic('Walking')} active={patient.revealedWalking} bgColor='bg-blue-600' />
-          <TagTool title={t('Check severe bleeding')} id='reveal-bleeding' n='healing' onClick={() => toggleRevealCharacteristic('Bleeding')} active={patient.revealedBleeding} bgColor='bg-blue-600' />
-          <TagTool title={t('Check talking')} id='reveal-talking' n='record_voice_over' onClick={() => toggleRevealCharacteristic('Talking')} active={patient.revealedTalking} bgColor='bg-blue-600' />
-          <TagTool title={t('Check penetrating injury')} id='reveal-penetrating' n='cut' onClick={() => toggleRevealCharacteristic('Penetrating')} active={patient.revealedPenetrating} bgColor='bg-blue-600' />
-          <TagTool title={t('Check breathing')} id='reveal-breathing' n='respiratory_rate' onClick={() => toggleRevealCharacteristic('Breathing')} active={patient.revealedBreathing} bgColor='bg-blue-600' />
-        </div>
+      <h4 className='text-xs font-bold uppercase tracking-wider text-gray-500 mt-4 mb-1 px-1'>
+        {t('Characteristics')}
+      </h4>
+      <div className='grid grid-cols-5 h-20 text-white gap-1 mb-2'>
+        <TagTool title={t('Check walking')} id='reveal-walking' n='directions_walk' onClick={() => toggleRevealCharacteristic('Walking')} active={patient.revealedWalking} bgColor='bg-blue-600' />
+        <TagTool title={t('Check severe bleeding')} id='reveal-bleeding' n='healing' onClick={() => toggleRevealCharacteristic('Bleeding')} active={patient.revealedBleeding} bgColor='bg-blue-600' />
+        <TagTool title={t('Check talking')} id='reveal-talking' n='record_voice_over' onClick={() => toggleRevealCharacteristic('Talking')} active={patient.revealedTalking} bgColor='bg-blue-600' />
+        <TagTool title={t('Check penetrating injury')} id='reveal-penetrating' n='cut' onClick={() => toggleRevealCharacteristic('Penetrating')} active={patient.revealedPenetrating} bgColor='bg-blue-600' />
+        <TagTool title={t('Check breathing')} id='reveal-breathing' n='respiratory_rate' onClick={() => toggleRevealCharacteristic('Breathing')} active={patient.revealedBreathing} bgColor='bg-blue-600' />
+      </div>
 
-        <h4 className='text-xs font-bold uppercase tracking-wider text-gray-500 mt-2 mb-1 px-1'>
-          {t('Actions')}
-        </h4>
-        <div className='grid grid-cols-3 h-20 text-white gap-1 mb-2'>
-          <TagTool title={t('Apply pressure / tourniquet / packing')} id='action-bleeding' n='healing' onClick={() => toggleActionButton('Bleeding')} active={patient.actionBleeding} bgColor={patient.actionBleeding ? 'bg-red-600' : 'bg-blue-600'} />
-          <TagTool title={t('Place in recovery position')} id='action-recovery' n='elderly' onClick={() => toggleActionButton('Recovery')} active={patient.actionRecovery} bgColor={patient.actionRecovery ? 'bg-red-600' : 'bg-blue-600'} />
-          <TagTool title={t('Place in recovery position or CPR if resources allow')} id='action-cpr' n='favorite' onClick={() => toggleActionButton('CPR')} active={patient.actionCPR} bgColor={patient.actionCPR ? 'bg-red-600' : 'bg-blue-600'} />
-        </div>
+      <h4 className='text-xs font-bold uppercase tracking-wider text-gray-500 mt-2 mb-1 px-1'>
+        {t('Actions')}
+      </h4>
+      <div className='grid grid-cols-3 h-20 text-white gap-1 mb-2'>
+        <TagTool title={t('Apply pressure / tourniquet / packing')} id='action-bleeding' n='healing' onClick={() => toggleActionButton('Bleeding')} active={patient.actionBleeding} bgColor={patient.actionBleeding ? 'bg-red-600' : 'bg-blue-600'} />
+        <TagTool title={t('Place in recovery position')} id='action-recovery' n='elderly' onClick={() => toggleActionButton('Recovery')} active={patient.actionRecovery} bgColor={patient.actionRecovery ? 'bg-red-600' : 'bg-blue-600'} />
+        <TagTool title={t('Place in recovery position or CPR if resources allow')} id='action-cpr' n='favorite' onClick={() => toggleActionButton('CPR')} active={patient.actionCPR} bgColor={patient.actionCPR ? 'bg-red-600' : 'bg-blue-600'} />
+      </div>
 
-        <h4 className='text-xs font-bold uppercase tracking-wider text-gray-500 mt-2 mb-1 px-1'>
-          {t('Priority')}
-        </h4>
-        <TagCodeSelector value={patient.assignedCode} onChange={(code: Code) => dispatch(setCode([patient.id, code]))} />
-      </Card >
-      <p className="text-center opacity-75 mt-4 mb-3 hidden lg:block">
-        <Trans t={t}>Use <Kbd>←</Kbd> and <Kbd>→</Kbd> to switch patients and keys <Kbd>1</Kbd> to <Kbd>4</Kbd> to assign priorities</Trans>
-      </p>
-    </>
+      <h4 className='text-xs font-bold uppercase tracking-wider text-gray-500 mt-2 mb-1 px-1'>
+        {t('Priority')}
+      </h4>
+      <TagCodeSelector value={patient.assignedCode} onChange={(code: Code) => dispatch(setCode([patient.id, code]))} />
+    </Card>
   )
 }
 
