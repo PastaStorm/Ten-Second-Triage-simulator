@@ -1,6 +1,7 @@
 import { createSelector } from '@reduxjs/toolkit'
 import { patientsAdapter } from './patients'
 import { type RootState } from '.'
+import { TST } from '../algorithm'
 
 export const {
   selectById: patientById,
@@ -12,14 +13,29 @@ export const selectTriagedPatients = createSelector(
   patients => patients.filter(({ assignedCode }) => assignedCode !== undefined)
 )
 
+export const selectCorrectlyTriagedPatients = createSelector(
+  [selectTriagedPatients],
+  patients => patients.filter(p => p.code === p.assignedCode && TST.validateActions(p).valid)
+)
+
 export const selectUndertriagedPatients = createSelector(
-  [allPatients],
-  patients => patients.filter(({ code, assignedCode }) => code > assignedCode!) // eslint-disable-line @typescript-eslint/no-non-null-assertion
+  [selectTriagedPatients],
+  patients => patients.filter(({ code, assignedCode }) => assignedCode !== undefined && code > assignedCode)
 )
 
 export const selectOvertriagedPatients = createSelector(
-  [allPatients],
-  patients => patients.filter(({ code, assignedCode }) => code < assignedCode!) // eslint-disable-line @typescript-eslint/no-non-null-assertion
+  [selectTriagedPatients],
+  patients => patients.filter(({ code, assignedCode }) => assignedCode !== undefined && code < assignedCode)
+)
+
+export const selectMissedActionsPatients = createSelector(
+  [selectTriagedPatients],
+  patients => patients.filter(p => TST.validateActions(p).missing)
+)
+
+export const selectIncorrectActionsPatients = createSelector(
+  [selectTriagedPatients],
+  patients => patients.filter(p => TST.validateActions(p).incorrect)
 )
 
 export const selectSevereBleedingPatients = createSelector(
