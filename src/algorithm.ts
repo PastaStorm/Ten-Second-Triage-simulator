@@ -54,7 +54,7 @@ class TriageScoringTool {
     const patient = {
       id: id ?? randomInt(0, 500),
       age,
-      canWalk: breathing ? randomBool(0.35) : false,
+      canWalk: breathing && age >= 2 ? randomBool(0.35) : false,
       severeBleeding: breathing ? randomBool(0.2) : false,
       talking: breathing ? randomBool(0.85) : false,
       breathing,
@@ -83,38 +83,41 @@ class TriageScoringTool {
   getRequiredActions (patient: Patient): { bleeding: boolean, recovery: boolean, cpr: boolean } {
     return {
       bleeding: patient.severeBleeding,
-      recovery: (!patient.talking && patient.breathing) || !patient.breathing,
+      recovery: patient.breathing && !patient.talking,
       cpr: !patient.breathing
     }
   }
 
-  validateActions (patient: Patient): boolean {
+  validateActions (patient: Patient): { valid: boolean, missing: boolean, incorrect: boolean } {
     const required = this.getRequiredActions(patient)
 
-    if (required.bleeding && !patient.actionBleeding) return false
-    if (required.recovery && !patient.actionRecovery) return false
-    if (required.cpr && !patient.actionCPR) return false
+    const missing =
+      (required.bleeding && !patient.actionBleeding) ||
+      (required.recovery && !patient.actionRecovery) ||
+      (required.cpr && !patient.actionCPR)
 
-    if (!required.bleeding && patient.actionBleeding) return false
-    if (!required.recovery && patient.actionRecovery) return false
-    if (!required.cpr && patient.actionCPR) return false
+    const incorrect =
+      (!required.bleeding && Boolean(patient.actionBleeding)) ||
+      (!required.recovery && Boolean(patient.actionRecovery)) ||
+      (!required.cpr && Boolean(patient.actionCPR))
 
-    return true
+    return { valid: !missing && !incorrect, missing, incorrect }
   }
 
   getFeedback (p: Patient): Feedback[] {
     const feedback = []
+    const actionCheck = this.validateActions(p)
 
-    if (p.assignedCode === undefined) feedback.push(Feedback.CODE_NOT_ASSIGNED)
-    else if (p.assignedCode !== p.code) {
+    if (p.assignedCode === undefined) {
+      feedback.push(Feedback.CODE_NOT_ASSIGNED)
+    } else if (p.assignedCode !== p.code) {
       feedback.push(Feedback.CODE_INCORRECT)
     } else {
-      if (!this.validateActions(p)) {
-        feedback.push(Feedback.CODE_INCORRECT)
-      } else {
-        feedback.push(Feedback.CODE_CORRECT)
-      }
+      feedback.push(Feedback.CODE_CORRECT)
     }
+
+    if (actionCheck.missing) feedback.push(Feedback.MISSING_ACTION)
+    if (actionCheck.incorrect) feedback.push(Feedback.ACTION_INCORRECT)
 
     if (!p.breathing) feedback.push(Feedback.NOT_BREATHING)
     else if (p.canWalk) feedback.push(Feedback.WALKING_P3)
