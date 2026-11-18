@@ -138,7 +138,7 @@ class TriageScoringTool {
       } else {
         feedback.push(Feedback.SEVERE_BLEEDING_ACTION)
       }
-      if (!p.canWalk) {
+      if (!p.canWalk && !p.talking) {
         feedback.push(Feedback.SEVERE_BLEEDING_RECOVERY_NOTE)
       }
     }
