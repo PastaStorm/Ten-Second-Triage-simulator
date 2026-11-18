@@ -46,7 +46,6 @@ export enum Feedback {
   NOT_TALKING_P1_ACTION_CORRECT,
   SEVERE_BLEEDING_RECOVERY_NOTE,
   SEVERE_BLEEDING_WALKING,
-  PENETRATING_INJURY_WALKING,
   WALKING_NOT_TALKING,
   ACTION_INCORRECT,
   MISSING_ACTION,
@@ -124,8 +123,8 @@ class TriageScoringTool {
     if (actionCheck.incorrect) feedback.push(Feedback.ACTION_INCORRECT)
 
     if (!p.breathing) feedback.push(Feedback.NOT_BREATHING)
-    else if (p.canWalk && !p.severeBleeding && !p.penetratingTorsoInjury) feedback.push(Feedback.WALKING_P3)
-    else if (p.canWalk && (p.severeBleeding || p.penetratingTorsoInjury)) {
+    else if (p.canWalk && !p.severeBleeding) feedback.push(Feedback.WALKING_P3)
+    else if (p.canWalk && p.severeBleeding) {
       feedback.push(Feedback.SEVERE_BLEEDING_WALKING)
     } else if (p.age < 2) feedback.push(Feedback.AGE_UNDER_TWO_P1)
     else if (p.severeBleeding) feedback.push(Feedback.SEVERE_BLEEDING_P1)
