@@ -83,7 +83,7 @@ class TriageScoringTool {
   getRequiredActions (patient: Patient): { bleeding: boolean, recovery: boolean, cpr: boolean } {
     return {
       bleeding: patient.severeBleeding,
-      recovery: patient.breathing && !patient.talking,
+      recovery: patient.breathing && !patient.talking && !patient.canWalk,
       cpr: !patient.breathing
     }
   }
@@ -129,9 +129,10 @@ class TriageScoringTool {
 
     if (p.severeBleeding) feedback.push(Feedback.SEVERE_BLEEDING_ACTION)
     if (!p.breathing) feedback.push(Feedback.NOT_BREATHING_ACTION)
-    if (!p.talking && p.breathing && !p.canWalk) feedback.push(Feedback.NOT_TALKING_P1_ACTION)
-    if (p.severeBleeding && p.canWalk) feedback.push(Feedback.SEVERE_BLEEDING_WALKING)
-    if (p.penetratingTorsoInjury && p.canWalk) feedback.push(Feedback.PENETRATING_INJURY_WALKING)
+    if (p.breathing && !p.talking && !p.canWalk) feedback.push(Feedback.NOT_TALKING_P1_ACTION)
+    if ((p.severeBleeding || p.penetratingTorsoInjury) && p.canWalk) {
+      feedback.push(Feedback.SEVERE_BLEEDING_WALKING)
+    }
 
     return feedback
   }
