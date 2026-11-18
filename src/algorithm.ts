@@ -87,22 +87,22 @@ class TriageScoringTool {
   getRequiredActions (patient: Patient): { bleeding: boolean, recovery: boolean, cpr: boolean } {
     return {
       bleeding: patient.severeBleeding,
-      recovery: false,
+      recovery: patient.breathing && !patient.talking && !patient.canWalk,
       cpr: !patient.breathing
     }
   }
 
   validateActions (patient: Patient): { valid: boolean, missing: boolean, incorrect: boolean } {
     const required = this.getRequiredActions(patient)
-    const recoveryAllowed = patient.breathing && !patient.talking && !patient.canWalk
 
     const missing =
       (required.bleeding && !patient.actionBleeding) ||
+      (required.recovery && !patient.actionRecovery) ||
       (required.cpr && !patient.actionCPR)
 
     const incorrect =
       (!required.bleeding && Boolean(patient.actionBleeding)) ||
-      (!recoveryAllowed && Boolean(patient.actionRecovery)) ||
+      (!required.recovery && Boolean(patient.actionRecovery)) ||
       (!required.cpr && Boolean(patient.actionCPR))
 
     return { valid: !missing && !incorrect, missing, incorrect }
@@ -138,9 +138,6 @@ class TriageScoringTool {
       } else {
         feedback.push(Feedback.SEVERE_BLEEDING_ACTION)
       }
-      if (!p.canWalk && !p.talking) {
-        feedback.push(Feedback.SEVERE_BLEEDING_RECOVERY_NOTE)
-      }
     }
 
     if (!p.breathing) {
@@ -151,8 +148,12 @@ class TriageScoringTool {
       }
     }
 
-    if (p.breathing && !p.talking && !p.canWalk && p.actionRecovery) {
-      feedback.push(Feedback.NOT_TALKING_P1_ACTION_CORRECT)
+    if (p.breathing && !p.talking && !p.canWalk) {
+      if (p.actionRecovery) {
+        feedback.push(Feedback.NOT_TALKING_P1_ACTION_CORRECT)
+      } else {
+        feedback.push(Feedback.NOT_TALKING_P1_ACTION)
+      }
     }
 
     if (p.canWalk && !p.talking) {
