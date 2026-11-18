@@ -20,9 +20,9 @@ const FeedbackCard: FunctionComponent = () => {
 
   const feedbackToString = (fb: Feedback): string => {
     switch (fb) {
-      case Feedback.CODE_NOT_ASSIGNED: return t('❓ You did not assign a code to this patient')
+      case Feedback.CODE_NOT_ASSIGNED: return t('❓ You did not assign a priority to this patient')
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      case Feedback.CODE_CORRECT: return t('Correct TST category: {{c}}', { c: t(codeToLabel(patient!.code)) })
+      case Feedback.CODE_CORRECT: return t('Correct TST Priority: {{c}}', { c: t(codeToLabel(patient!.code)) })
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       case Feedback.CODE_INCORRECT: return t('TST indicates {{c}}; you assigned {{a}}', { c: t(codeToLabel(patient!.code)), a: t(codeToLabel(patient!.assignedCode!)) })
       case Feedback.NOT_BREATHING: return t('Not breathing: classify as Not Breathing (Silver).')
@@ -30,13 +30,13 @@ const FeedbackCard: FunctionComponent = () => {
       case Feedback.AGE_UNDER_TWO_P1: return t('Age under 2: classify as P1 (Red).')
       case Feedback.SEVERE_BLEEDING_P1: return t('Severe bleeding: classify as P1 (Red).')
       case Feedback.NOT_TALKING_P1: return t('Not talking: classify as P1 (Red).')
-      case Feedback.PENETRATING_INJURY_P1: return t('Talking with a penetrating injury to the neck, chest, armpits, back, abdomen, groin, or buttocks: classify as P1 (Red).')
+      case Feedback.PENETRATING_INJURY_P1: return t('Talking with a penetrating injury to the torso: classify as P1 (Red).')
       case Feedback.OTHERWISE_P2: return t('No P1 or P3 criteria apply: classify as P2 (Yellow).')
       case Feedback.SEVERE_BLEEDING_ACTION: return t('Apply pressure / tourniquet / packing')
       case Feedback.NOT_BREATHING_ACTION: return t('Place in recovery position or CPR if resources allow.')
       case Feedback.NOT_TALKING_P1_ACTION: return t('Place in recovery position.')
-      case Feedback.SEVERE_BLEEDING_WALKING: return t('Clearly critically injured casualties who are walking should be sat down and treated as not walking. Ref: NARU TST Non Clinical Responders Supplementary Information.')
-      case Feedback.PENETRATING_INJURY_WALKING: return t('Clearly critically injured casualties who are walking should be sat down and treated as not walking. Ref: NARU TST Non Clinical Responders Supplementary Information.')
+      case Feedback.SEVERE_BLEEDING_WALKING: return t('Although P3 is technically correct; clearly critically injured casualties who are walking should be sat down and triaged/treated as P1. Ref: NARU TST Non Clinical Responders Supplementary Information.')
+      case Feedback.PENETRATING_INJURY_WALKING: return t('Although P3 is technically correct; clearly critically injured casualties who are walking should be sat down and triaged/treated as P1. Ref: NARU TST Non Clinical Responders Supplementary Information.')
       case Feedback.ACTION_INCORRECT: return t('You failed to perform the correct action for this patient.')
       case Feedback.MISSING_ACTION: return t('You failed to complete the required action for this patient.')
     }
