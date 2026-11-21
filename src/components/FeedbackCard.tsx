@@ -26,7 +26,7 @@ const FeedbackCard: FunctionComponent = () => {
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       case Feedback.CODE_INCORRECT: return t('TST indicates {{c}}; you assigned {{a}}', { c: t(codeToLabel(patient!.code)), a: t(codeToLabel(patient!.assignedCode!)) })
       case Feedback.NOT_BREATHING: return t('Not breathing: classify as Not Breathing (Silver).')
-      case Feedback.WALKING_P3: return t('Can walk: classify as P3 (Green).')
+      case Feedback.WALKING_P3: return t('Can walk: classify as P3 (Green). P3 patients should be directed towards a place of safety.')
       case Feedback.AGE_UNDER_TWO_P1: return t('Age under 2: classify as P1 (Red). The majority of children under 2 are unlikely to be able to walk or talk independently so all under 2s should be triaged as P1. (Ref: TST for non clinical responders supplementary information)')
       case Feedback.SEVERE_BLEEDING_P1: return t('Severe bleeding: classify as P1 (Red).')
       case Feedback.NOT_TALKING_P1: return t('Not talking: classify as P1 (Red).')
