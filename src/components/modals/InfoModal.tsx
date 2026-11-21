@@ -10,7 +10,7 @@ const InfoModal: FunctionComponent = () => (
       <p className="mb-2">
         Welcome to <strong>⛑ Triage Simulator</strong>! This app allows you to
         learn and gain familiarity with triage protocols for mass casualty
-        incidents. It uses the NHS Triage &amp; Scoring Tool (TST).
+        incidents. It uses the NHS Ten Second Triage (TST) tool.
       </p>
       <h3 className="text-2xl font-black mt-4 mb-2">How it works</h3>
       <ol className="mb-2 pl-2 list-disc list-inside">
@@ -27,11 +27,14 @@ const InfoModal: FunctionComponent = () => (
         </li>
         <li>
           Review the patient findings on the triage tag and assign a priority.
-          Not breathing is Silver. Otherwise, can walk is P3 (Green); age under
-          2, severe bleeding, not talking, or talking with a penetrating torso
-          injury to the neck, chest, armpits, back, abdomen, groin, or buttocks
-          is P1 (Red); all other patients are P2 (Yellow). For severe bleeding,
-          apply pressure, a tourniquet, or packing.
+          Not breathing is Silver. Otherwise, severe bleeding is P1 (Red); can
+          walk is P3 (Green); age under 2, not talking, or talking with a
+          penetrating torso injury to the neck, chest, armpits, back, abdomen,
+          groin, or buttocks is P1 (Red); all other patients are P2 (Yellow).
+          Also complete any required immediate actions: apply pressure, a
+          tourniquet, or packing for severe bleeding; place non-talking
+          breathing patients in the recovery position; or perform CPR if not
+          breathing (as resources allow).
         </li>
         <li>
           You can use <Icon n="visibility" className='text-xl/6 align-bottom' /> in
@@ -47,7 +50,7 @@ const InfoModal: FunctionComponent = () => (
       <h3 className="text-2xl font-black mt-4 mb-2">About the project</h3>
       <p className="mb-2">
         Triage Simulator is an open source project, you can find the code and
-        report issues in the <a className="underline underline-offset-2" href="https://github.com/ALCC01/triage-simulator">Github repository</a>.
+        report issues in the <a className="underline underline-offset-2" href="https://github.com">Github repository</a>.
         You are currently running version {APP_VERSION} at commit {COMMIT_HASH}.
       </p>
       <p className="mb-2">
