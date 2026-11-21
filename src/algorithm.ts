@@ -46,7 +46,6 @@ export enum Feedback {
   NOT_TALKING_P1_ACTION_CORRECT,
   SEVERE_BLEEDING_RECOVERY_NOTE,
   SEVERE_BLEEDING_WALKING,
-  WALKING_NOT_TALKING,
   ACTION_INCORRECT,
   MISSING_ACTION,
 }
@@ -55,12 +54,13 @@ class TriageScoringTool {
   newPatient (id?: number): Patient {
     const age = randomInt(0, 80)
     const breathing = randomBool(0.97)
+    const canWalk = breathing && age >= 2 ? randomBool(0.35) : false
     const patient = {
       id: id ?? randomInt(0, 500),
       age,
-      canWalk: breathing && age >= 2 ? randomBool(0.35) : false,
+      canWalk,
       severeBleeding: breathing ? randomBool(0.2) : false,
-      talking: breathing ? randomBool(0.85) : false,
+      talking: canWalk ? true : (breathing ? randomBool(0.85) : false),
       breathing,
       penetratingTorsoInjury: randomBool(0.15),
       code: Code.P2,
@@ -79,8 +79,9 @@ class TriageScoringTool {
 
   getCode (patient: Patient): Code {
     if (!patient.breathing) return Code.NOT_BREATHING
+    if (patient.severeBleeding) return Code.P1
     if (patient.canWalk) return Code.P3
-    if (patient.age < 2 || patient.severeBleeding || !patient.talking || patient.penetratingTorsoInjury) return Code.P1
+    if (patient.age < 2 || !patient.talking || patient.penetratingTorsoInjury) return Code.P1
     return Code.P2
   }
 
@@ -154,10 +155,6 @@ class TriageScoringTool {
       } else {
         feedback.push(Feedback.NOT_TALKING_P1_ACTION)
       }
-    }
-
-    if (p.canWalk && !p.talking) {
-      feedback.push(Feedback.WALKING_NOT_TALKING)
     }
 
     return feedback
