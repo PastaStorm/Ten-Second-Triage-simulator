@@ -1,5 +1,6 @@
 import { type PayloadAction, createSlice } from '@reduxjs/toolkit'
 import i18n, { type Locale } from '../i18n'
+import { clearPatients } from './patients'
 
 interface UIState {
   currentPatient?: number
@@ -34,6 +35,11 @@ export const uiSlice = createSlice({
       state.locale = locale
       void i18n.changeLanguage(locale)
     }
+  },
+  extraReducers: (builder) => {
+    builder.addCase(clearPatients, (state) => {
+      state.revealFeedback = false
+    })
   }
 })
 
