@@ -83,20 +83,20 @@ const TriageTag: FunctionComponent = () => {
         {t('Characteristics')}
       </h4>
       <div className='grid grid-cols-5 h-20 text-white gap-1 mb-2'>
-        <TagTool title={t('Check walking')} id='reveal-walking' n='directions_walk' onClick={() => toggleRevealCharacteristic('Walking')} active={patient.revealedWalking} bgColor='bg-blue-600' />
-        <TagTool title={t('Check severe bleeding')} id='reveal-bleeding' n='healing' onClick={() => toggleRevealCharacteristic('Bleeding')} active={patient.revealedBleeding} bgColor='bg-blue-600' />
-        <TagTool title={t('Check talking')} id='reveal-talking' n='record_voice_over' onClick={() => toggleRevealCharacteristic('Talking')} active={patient.revealedTalking} bgColor='bg-blue-600' />
-        <TagTool title={t('Check penetrating injury')} id='reveal-penetrating' n='cut' onClick={() => toggleRevealCharacteristic('Penetrating')} active={patient.revealedPenetrating} bgColor='bg-blue-600' />
-        <TagTool title={t('Check breathing')} id='reveal-breathing' n='respiratory_rate' onClick={() => toggleRevealCharacteristic('Breathing')} active={patient.revealedBreathing} bgColor='bg-blue-600' />
+        <TagTool title={t('Check walking')} label={t('Walking?')} id='reveal-walking' onClick={() => toggleRevealCharacteristic('Walking')} active={patient.revealedWalking} bgColor='bg-blue-600' />
+        <TagTool title={t('Check severe bleeding')} label={t('Severe bleeding?')} id='reveal-bleeding' onClick={() => toggleRevealCharacteristic('Bleeding')} active={patient.revealedBleeding} bgColor='bg-blue-600' />
+        <TagTool title={t('Check talking')} label={t('Talking?')} id='reveal-talking' onClick={() => toggleRevealCharacteristic('Talking')} active={patient.revealedTalking} bgColor='bg-blue-600' />
+        <TagTool title={t('Check penetrating injury')} label={t('Penetrating injury?')} id='reveal-penetrating' onClick={() => toggleRevealCharacteristic('Penetrating')} active={patient.revealedPenetrating} bgColor='bg-blue-600' />
+        <TagTool title={t('Check breathing')} label={t('Breathing?')} id='reveal-breathing' onClick={() => toggleRevealCharacteristic('Breathing')} active={patient.revealedBreathing} bgColor='bg-blue-600' />
       </div>
 
       <h4 className='text-xs font-bold uppercase tracking-wider text-gray-500 mt-2 mb-1 px-1'>
         {t('Actions')}
       </h4>
       <div className='grid grid-cols-3 h-20 text-white gap-1 mb-2'>
-        <TagTool title={t('Apply pressure / tourniquet / packing')} id='action-bleeding' n='healing' onClick={() => toggleActionButton('Bleeding')} active={patient.actionBleeding} bgColor={patient.actionBleeding ? 'bg-red-600' : 'bg-blue-600'} />
-        <TagTool title={t('Place in recovery position')} id='action-recovery' n='elderly' onClick={() => toggleActionButton('Recovery')} active={patient.actionRecovery} bgColor={patient.actionRecovery ? 'bg-red-600' : 'bg-blue-600'} />
-        <TagTool title={t('Place in recovery position or CPR if resources allow')} id='action-cpr' n='favorite' onClick={() => toggleActionButton('CPR')} active={patient.actionCPR} bgColor={patient.actionCPR ? 'bg-red-600' : 'bg-blue-600'} />
+        <TagTool title={t('Apply pressure / tourniquet / packing')} label={t('Apply pressure / tourniquet / packing')} id='action-bleeding' onClick={() => toggleActionButton('Bleeding')} active={patient.actionBleeding} bgColor={patient.actionBleeding ? 'bg-red-600' : 'bg-blue-600'} />
+        <TagTool title={t('Place in recovery position')} label={t('Place in recovery position')} id='action-recovery' onClick={() => toggleActionButton('Recovery')} active={patient.actionRecovery} bgColor={patient.actionRecovery ? 'bg-red-600' : 'bg-blue-600'} />
+        <TagTool title={t('Place in recovery position or CPR if resources allow')} label={t('Place in recovery position or CPR if resources allow')} id='action-cpr' onClick={() => toggleActionButton('CPR')} active={patient.actionCPR} bgColor={patient.actionCPR ? 'bg-red-600' : 'bg-blue-600'} />
       </div>
 
       <h4 className='text-xs font-bold uppercase tracking-wider text-gray-500 mt-2 mb-1 px-1'>
