@@ -52,6 +52,7 @@ export enum Feedback {
   OVERTRIAGED_BREATHING,
   OVERTRIAGED_SEVERE_BLEEDING,
   OVERTRIAGED_WALKING,
+  MISSING_PENETRATING_CHECK,
 }
 
 class TriageScoringTool {
@@ -242,6 +243,10 @@ class TriageScoringTool {
       } else {
         feedback.push(Feedback.NOT_TALKING_P1_ACTION)
       }
+    }
+
+    if (p.breathing && !p.severeBleeding && !p.canWalk && p.age >= 2 && p.talking && !p.revealedPenetrating) {
+      feedback.push(Feedback.MISSING_PENETRATING_CHECK)
     }
 
     if (p.severeBleeding && (p.revealedTalking || p.revealedPenetrating || p.revealedBreathing)) {
