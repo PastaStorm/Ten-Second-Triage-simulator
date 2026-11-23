@@ -105,20 +105,23 @@ class TriageScoringTool {
         'lying on a blanket on the ground',
         'wrapped in a jacket beside the walkway'
       ][seed % 3]
-    } else if (patient.canWalk) {
-      posture = [
-        'standing near the exit looking disoriented',
-        'moving slowly towards you',
-        'pacing near the edge of the area',
-        'leaning against a wall on foot'
-      ][seed % 4]
     } else {
-      posture = [
+      const groundPostures = [
         'lying on the floor',
         'slumped against the wall',
-        'seated on the ground unable to get up',
-        'lying curled on their side'
-      ][seed % 4]
+        'seated on the ground',
+        'lying curled on their side',
+        'sitting on the kerb with head bowed'
+      ]
+      const uprightPostures = [
+        'crouching near the edge of the area',
+        'leaning heavily against a barrier',
+        'standing nearby looking disoriented'
+      ]
+      const availablePostures = (patient.breathing && patient.talking)
+        ? [...groundPostures, ...uprightPostures]
+        : groundPostures
+      posture = availablePostures[seed % availablePostures.length]
     }
 
     let injuryCue: string
