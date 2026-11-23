@@ -41,7 +41,7 @@ const FeedbackCard: FunctionComponent = () => {
       case Feedback.NOT_TALKING_P1_ACTION_CORRECT: return t('Correct: You placed in recovery position.')
       case Feedback.SEVERE_BLEEDING_RECOVERY_NOTE: return t('Although technically not part of the TST algorithm if the patient is unconscious then it is best practice to place them in the recovery position.')
       case Feedback.SEVERE_BLEEDING_WALKING: return t('Severe bleeding while walking: classify as P1 (Red). Critically injured casualties who are walking should be sat down and triaged/treated as P1. Ref: NARU TST Non Clinical Responders Supplementary Information.')
-      case Feedback.ACTION_INCORRECT: return t('Incorrect: You failed to perform the correct action for this patient.')
+      case Feedback.ACTION_INCORRECT: return t('Incorrect: You failed to perform the correct action for this patient OR you carried out an improper action.')
       case Feedback.MISSING_ACTION: return t('Incorrect: You failed to complete the required action for this patient.')
       case Feedback.OVERTRIAGED_BREATHING: return t('Incorrect: You overtriaged by checking breathing when the patient was talking.')
       case Feedback.OVERTRIAGED_SEVERE_BLEEDING: return t('Incorrect: You overtriaged; a severe bleed is triaged as P1 so the additional checks are irrelevant.')
