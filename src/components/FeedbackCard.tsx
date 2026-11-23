@@ -44,6 +44,7 @@ const FeedbackCard: FunctionComponent = () => {
       case Feedback.ACTION_INCORRECT: return t('Incorrect: You failed to perform the correct action for this patient.')
       case Feedback.MISSING_ACTION: return t('Incorrect: You failed to complete the required action for this patient.')
       case Feedback.OVERTRIAGED_BREATHING: return t('Incorrect: You overtriaged by checking breathing when the patient was talking.')
+      case Feedback.OVERTRIAGED_SEVERE_BLEEDING: return t('Incorrect: You overtriaged; a severe bleed is triaged as P1 so the additional checks are irrelevant.')
     }
   }
 
@@ -104,4 +105,3 @@ const FeedbackCard: FunctionComponent = () => {
 }
 
 export default FeedbackCard
-
