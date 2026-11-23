@@ -80,6 +80,81 @@ class TriageScoringTool {
     return { ...patient, code: this.getCode(patient) }
   }
 
+  getVisualDescription (patient: Patient): string {
+    const seed = patient.id
+    const sex = seed % 2 === 0 ? 'male' : 'female'
+    const pronoun = sex === 'male' ? 'his' : 'her'
+
+    let subject: string
+    if (patient.age < 2) {
+      subject = `An infant (${sex})`
+    } else if (patient.age < 12) {
+      subject = `A ${sex} child`
+    } else if (patient.age < 18) {
+      subject = `A teenage ${sex}`
+    } else if (patient.age >= 65) {
+      subject = `An elderly ${sex}`
+    } else {
+      subject = `An adult ${sex}`
+    }
+
+    let posture: string
+    if (patient.age < 2) {
+      posture = [
+        'being held near the scene',
+        'lying on a blanket on the ground',
+        'wrapped in a jacket beside the walkway'
+      ][seed % 3]
+    } else if (patient.canWalk) {
+      posture = [
+        'standing near the exit looking disoriented',
+        'moving slowly towards you',
+        'pacing near the edge of the area',
+        'leaning against a wall on foot'
+      ][seed % 4]
+    } else {
+      posture = [
+        'lying on the floor',
+        'slumped against the wall',
+        'seated on the ground unable to get up',
+        'lying curled on their side'
+      ][seed % 4]
+    }
+
+    let injuryCue: string
+    if (patient.severeBleeding) {
+      injuryCue = [
+        `with blood soaking through ${pronoun} clothing`,
+        `holding ${pronoun} right thigh with dark staining on ${pronoun} trousers`,
+        `with a blood-stained sleeve pressed against ${pronoun} arm`,
+        `with pooling blood visible near ${pronoun} lower leg`
+      ][(seed >> 1) % 4]
+    } else if (patient.penetratingTorsoInjury) {
+      injuryCue = [
+        `clutching ${pronoun} chest with torn clothing`,
+        `holding a hand over ${pronoun} abdomen`,
+        `with a rip in ${pronoun} jacket over the torso`,
+        `guarding ${pronoun} ribs and wincing`
+      ][(seed >> 1) % 4]
+    } else if (!patient.breathing || !patient.talking) {
+      injuryCue = [
+        'with eyes closed and appearing very still',
+        'not responding to the noise around them',
+        'lying quietly with dust and debris on their clothes',
+        'looking pale and unresponsive to nearby shouting'
+      ][(seed >> 1) % 4]
+    } else {
+      injuryCue = [
+        `with superficial grazes to ${pronoun} palms`,
+        `covered in dust and holding ${pronoun} shoulder`,
+        `with minor cuts on ${pronoun} forearm`,
+        'appearing shaken with no obvious major wounds'
+      ][(seed >> 1) % 4]
+    }
+
+    return `${subject} ${posture} ${injuryCue}.`
+  }
+
   getCode (patient: Patient): Code {
     if (!patient.breathing) return Code.NOT_BREATHING
     if (patient.severeBleeding) return Code.P1
