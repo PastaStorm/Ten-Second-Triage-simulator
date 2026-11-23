@@ -98,7 +98,7 @@ const PatientList: FunctionComponent = () => {
 
   return (
     <Card className="mb-6">
-      <CardHeader title={t('Patients')}>
+      <CardHeader title={t('Casualties (click on a dot to start).')}>
         <button
           className="cursor-pointer"
           title={revealCodes ? t('Hide correct triage codes') : t('Show correct triage codes')}
