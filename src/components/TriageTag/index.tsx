@@ -1,7 +1,7 @@
 import { type FunctionComponent } from 'preact'
 import { patientById, useAppDispatch, useAppSelector } from '../../store'
 import { setCode, toggleReveal, toggleAction } from '../../store/patients'
-import { type Code } from '../../algorithm'
+import { type Code, TST } from '../../algorithm'
 import TagRow from './TagRow'
 import TagCell from './TagCell'
 import TagTool from './TagTool'
@@ -56,7 +56,12 @@ const TriageTag: FunctionComponent = () => {
   return (
     <Card className='h-min'>
       <TagRow border>
-        <TagCell title={t('Triage tag')} span={9}>#{patient.id.toString().padStart(4, '0')}</TagCell>
+        <TagCell title={t('Triage tag')} span={9}>
+          <div>#{patient.id.toString().padStart(4, '0')}</div>
+          <p className='text-sm font-normal text-gray-600 mt-1 leading-snug'>
+            {TST.getVisualDescription(patient)}
+          </p>
+        </TagCell>
         <TagCell title={t('Age')} span={3}>{t('{{age}} yrs', { age: patient.age })}</TagCell>
       </TagRow>
       <TagRow>
