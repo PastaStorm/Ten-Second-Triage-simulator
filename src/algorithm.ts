@@ -88,13 +88,14 @@ class TriageScoringTool {
   getRequiredActions (patient: Patient): { bleeding: boolean, recovery: boolean, cpr: boolean } {
     return {
       bleeding: patient.severeBleeding,
-      recovery: patient.breathing && !patient.talking && !patient.canWalk,
+      recovery: !patient.severeBleeding && patient.breathing && !patient.talking && !patient.canWalk,
       cpr: !patient.breathing
     }
   }
 
   validateActions (patient: Patient): { valid: boolean, missing: boolean, incorrect: boolean } {
     const required = this.getRequiredActions(patient)
+    const optionalRecovery = patient.severeBleeding && patient.breathing && !patient.talking && !patient.canWalk
 
     const missing =
       (required.bleeding && !patient.actionBleeding) ||
@@ -103,7 +104,7 @@ class TriageScoringTool {
 
     const incorrect =
       (!required.bleeding && Boolean(patient.actionBleeding)) ||
-      (!required.recovery && Boolean(patient.actionRecovery)) ||
+      (!required.recovery && !optionalRecovery && Boolean(patient.actionRecovery)) ||
       (!required.cpr && Boolean(patient.actionCPR))
 
     return { valid: !missing && !incorrect, missing, incorrect }
@@ -150,7 +151,9 @@ class TriageScoringTool {
     }
 
     if (p.breathing && !p.talking && !p.canWalk) {
-      if (p.actionRecovery) {
+      if (p.severeBleeding) {
+        feedback.push(Feedback.SEVERE_BLEEDING_RECOVERY_NOTE)
+      } else if (p.actionRecovery) {
         feedback.push(Feedback.NOT_TALKING_P1_ACTION_CORRECT)
       } else {
         feedback.push(Feedback.NOT_TALKING_P1_ACTION)
