@@ -108,11 +108,15 @@ class TriageScoringTool {
         'wrapped in a jacket beside the walkway'
       ][seed % 3]
     } else {
-      const groundPostures = [
+      const lyingPostures = [
         'lying on the floor',
-        'slumped against the wall',
-        'seated on the ground',
         'lying curled on their side',
+        'lying flat on their back',
+        'lying near the edge of the walkway',
+        'slumped against the wall'
+      ]
+      const seatedPostures = [
+        'seated on the ground',
         'sitting on the kerb with head bowed'
       ]
       const uprightPostures = [
@@ -120,9 +124,13 @@ class TriageScoringTool {
         'leaning heavily against a barrier',
         'standing nearby looking disoriented'
       ]
-      const availablePostures = (patient.canWalk && patient.breathing && patient.talking)
-        ? [...groundPostures, ...uprightPostures]
-        : groundPostures
+
+      let availablePostures = lyingPostures
+      if (patient.breathing && patient.talking) {
+        availablePostures = patient.canWalk
+          ? [...lyingPostures, ...seatedPostures, ...uprightPostures]
+          : [...lyingPostures, ...seatedPostures]
+      }
       posture = availablePostures[seed % availablePostures.length]
     }
 
