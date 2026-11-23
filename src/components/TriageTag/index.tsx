@@ -57,8 +57,7 @@ const TriageTag: FunctionComponent = () => {
     <Card className='h-min'>
       <TagRow border>
         <TagCell title={t('Triage tag')} span={9} wrap>
-          <div>#{patient.id.toString().padStart(4, '0')}</div>
-          <p className='text-sm font-normal text-gray-600 mt-1 leading-snug'>
+          <p className='text-sm md:text-base font-normal text-gray-800 leading-snug'>
             {TST.getVisualDescription(patient)}
           </p>
         </TagCell>
