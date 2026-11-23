@@ -120,7 +120,7 @@ class TriageScoringTool {
         'leaning heavily against a barrier',
         'standing nearby looking disoriented'
       ]
-      const availablePostures = (patient.breathing && patient.talking)
+      const availablePostures = (patient.canWalk && patient.breathing && patient.talking)
         ? [...groundPostures, ...uprightPostures]
         : groundPostures
       posture = availablePostures[seed % availablePostures.length]
