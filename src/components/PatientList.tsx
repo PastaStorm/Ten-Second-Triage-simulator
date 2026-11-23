@@ -18,6 +18,7 @@ const INCORRECT_FEEDBACK = new Set<Feedback>([
   Feedback.MISSING_ACTION,
   Feedback.OVERTRIAGED_BREATHING,
   Feedback.OVERTRIAGED_SEVERE_BLEEDING,
+  Feedback.OVERTRIAGED_WALKING,
 ])
 
 interface PatientDotProps {
@@ -31,7 +32,7 @@ const PatientDot: FunctionComponent<PatientDotProps> = ({ active, patient, onSel
   const assignedCode = patient.assignedCode ?? 0
   const cls = cx(
     'inline-block m-0.5 appearance-none cursor-pointer',
-    codeToColor(assignedCode as Code)[0]
+    codeToColor(assignedCode as Code)
   )
 
   const hasIncorrectFeedback = TST.getFeedback(patient).some((fb) => INCORRECT_FEEDBACK.has(fb))
