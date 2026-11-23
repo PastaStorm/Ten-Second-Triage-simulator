@@ -31,7 +31,7 @@ const PatientDot: FunctionComponent<PatientDotProps> = ({ active, patient, onSel
   const assignedCode = patient.assignedCode ?? 0
   const cls = cx(
     'inline-block m-0.5 appearance-none cursor-pointer',
-    codeToColor(assignedCode)[0]
+    codeToColor(patient.assignedCode)[0]
   )
 
   const hasIncorrectFeedback = TST.getFeedback(patient).some((fb) => INCORRECT_FEEDBACK.has(fb))
