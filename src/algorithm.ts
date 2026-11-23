@@ -126,35 +126,50 @@ class TriageScoringTool {
       posture = availablePostures[seed % availablePostures.length]
     }
 
+    const generalCues = [
+      `with superficial grazes to ${pronoun} palms`,
+      `covered in dust and holding ${pronoun} shoulder`,
+      `with minor cuts on ${pronoun} forearm`,
+      'appearing shaken with no obvious major wounds',
+      `nursing a bruised ankle and smeared with soot`,
+      `with a small graze across ${pronoun} forehead`,
+      `holding ${pronoun} wrist and looking dazed`
+    ]
+
+    const torsoCues = [
+      `clutching ${pronoun} chest with torn clothing`,
+      `holding a hand over ${pronoun} abdomen`,
+      `with a rip in ${pronoun} jacket over the torso`,
+      `guarding ${pronoun} ribs and wincing`,
+      `leaning forward with both hands pressed to ${pronoun} stomach`,
+      `with damaged clothing across ${pronoun} back and shoulder`
+    ]
+
+    const sharedResponsiveCues = [...generalCues, ...torsoCues]
+
     let injuryCue: string
     if (patient.severeBleeding) {
-      injuryCue = [
+      const severeBleedingCues = [
         `with blood soaking through ${pronoun} clothing`,
         `holding ${pronoun} right thigh with dark staining on ${pronoun} trousers`,
         `with a blood-stained sleeve pressed against ${pronoun} arm`,
-        `with pooling blood visible near ${pronoun} lower leg`
-      ][(seed >> 1) % 4]
-    } else if (patient.penetratingTorsoInjury) {
-      injuryCue = [
-        `clutching ${pronoun} chest with torn clothing`,
-        `holding a hand over ${pronoun} abdomen`,
-        `with a rip in ${pronoun} jacket over the torso`,
-        `guarding ${pronoun} ribs and wincing`
-      ][(seed >> 1) % 4]
+        `with pooling blood visible near ${pronoun} lower leg`,
+        `clutching a blood-soaked cloth to ${pronoun} upper leg`,
+        `with dark wet patches spreading across ${pronoun} jacket`
+      ]
+      injuryCue = severeBleedingCues[(seed >> 1) % severeBleedingCues.length]
     } else if (!patient.breathing || !patient.talking) {
-      injuryCue = [
+      const unresponsiveCues = [
         'with eyes closed and appearing very still',
         'not responding to the noise around them',
         'lying quietly with dust and debris on their clothes',
-        'looking pale and unresponsive to nearby shouting'
-      ][(seed >> 1) % 4]
+        'looking pale and unresponsive to nearby shouting',
+        `motionless with ${pronoun} head tilted to one side`,
+        'making no sound and showing no obvious movement'
+      ]
+      injuryCue = unresponsiveCues[(seed >> 1) % unresponsiveCues.length]
     } else {
-      injuryCue = [
-        `with superficial grazes to ${pronoun} palms`,
-        `covered in dust and holding ${pronoun} shoulder`,
-        `with minor cuts on ${pronoun} forearm`,
-        'appearing shaken with no obvious major wounds'
-      ][(seed >> 1) % 4]
+      injuryCue = sharedResponsiveCues[(seed >> 1) % sharedResponsiveCues.length]
     }
 
     return `${subject} ${posture} ${injuryCue}.`
