@@ -49,6 +49,7 @@ export enum Feedback {
   SEVERE_BLEEDING_WALKING,
   ACTION_INCORRECT,
   MISSING_ACTION,
+  OVERTRIAGED_BREATHING,
 }
 
 class TriageScoringTool {
@@ -161,6 +162,10 @@ class TriageScoringTool {
       } else {
         feedback.push(Feedback.NOT_TALKING_P1_ACTION)
       }
+    }
+
+    if (p.talking && p.revealedBreathing) {
+      feedback.push(Feedback.OVERTRIAGED_BREATHING)
     }
 
     return feedback
