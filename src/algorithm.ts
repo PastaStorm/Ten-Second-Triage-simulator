@@ -33,6 +33,7 @@ export enum Feedback {
   CODE_INCORRECT,
   NOT_BREATHING,
   WALKING_P3,
+  WALKING_P3_NOTE,
   AGE_UNDER_TWO_P1,
   SEVERE_BLEEDING_P1,
   NOT_TALKING_P1,
@@ -125,8 +126,10 @@ class TriageScoringTool {
     if (actionCheck.incorrect) feedback.push(Feedback.ACTION_INCORRECT)
 
     if (!p.breathing) feedback.push(Feedback.NOT_BREATHING)
-    else if (p.canWalk && !p.severeBleeding) feedback.push(Feedback.WALKING_P3)
-    else if (p.canWalk && p.severeBleeding) {
+    else if (p.canWalk && !p.severeBleeding) {
+      feedback.push(Feedback.WALKING_P3)
+      feedback.push(Feedback.WALKING_P3_NOTE)
+    } else if (p.canWalk && p.severeBleeding) {
       feedback.push(Feedback.SEVERE_BLEEDING_WALKING)
     } else if (p.age < 2) feedback.push(Feedback.AGE_UNDER_TWO_P1)
     else if (p.severeBleeding) feedback.push(Feedback.SEVERE_BLEEDING_P1)
