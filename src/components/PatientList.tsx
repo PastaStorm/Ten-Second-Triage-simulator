@@ -5,7 +5,7 @@ import { allPatients, useAppDispatch, useAppSelector } from '../store'
 import { setCurrentPatient, toggleFeedback } from '../store/ui'
 import { useGame, useHotkey } from '../hooks'
 import Icon from './Icon'
-import { Feedback, type Patient, TST } from '../algorithm'
+import { type Code, Feedback, type Patient, TST } from '../algorithm'
 import { useTranslation } from 'react-i18next'
 import { useCallback } from 'preact/hooks'
 
@@ -31,7 +31,7 @@ const PatientDot: FunctionComponent<PatientDotProps> = ({ active, patient, onSel
   const assignedCode = patient.assignedCode ?? 0
   const cls = cx(
     'inline-block m-0.5 appearance-none cursor-pointer',
-    codeToColor(patient.assignedCode)[0]
+    codeToColor(assignedCode as Code)[0]
   )
 
   const hasIncorrectFeedback = TST.getFeedback(patient).some((fb) => INCORRECT_FEEDBACK.has(fb))
