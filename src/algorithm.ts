@@ -55,6 +55,10 @@ export enum Feedback {
   MISSING_PENETRATING_CHECK,
   OVERTRIAGED_NOT_TALKING,
   OVERTRIAGED_AGE_UNDER_TWO,
+  ACTION_BLEEDING_INCORRECT,
+  ACTION_RECOVERY_TALKING_INCORRECT,
+  ACTION_CPR_TALKING_INCORRECT,
+  ACTION_CPR_BREATHING_INCORRECT,
 }
 
 class TriageScoringTool {
@@ -203,7 +207,7 @@ class TriageScoringTool {
 
   validateActions (patient: Patient): { valid: boolean, missing: boolean, incorrect: boolean } {
     const required = this.getRequiredActions(patient)
-    const optionalRecovery = patient.severeBleeding && patient.breathing && !patient.talking && !patient.canWalk
+    const optionalRecovery = !required.recovery && !patient.talking && !patient.canWalk
 
     const missing =
       (required.bleeding && !patient.actionBleeding) ||
@@ -220,7 +224,6 @@ class TriageScoringTool {
 
   getFeedback (p: Patient): Feedback[] {
     const feedback = []
-    const actionCheck = this.validateActions(p)
 
     if (p.assignedCode === undefined) {
       feedback.push(Feedback.CODE_NOT_ASSIGNED)
@@ -230,7 +233,19 @@ class TriageScoringTool {
       feedback.push(Feedback.CODE_CORRECT)
     }
 
-    if (actionCheck.incorrect) feedback.push(Feedback.ACTION_INCORRECT)
+    if (!p.severeBleeding && p.actionBleeding) {
+      feedback.push(Feedback.ACTION_BLEEDING_INCORRECT)
+    }
+    if (p.actionRecovery && p.talking) {
+      feedback.push(Feedback.ACTION_RECOVERY_TALKING_INCORRECT)
+    }
+    if (p.actionCPR) {
+      if (p.talking) {
+        feedback.push(Feedback.ACTION_CPR_TALKING_INCORRECT)
+      } else if (p.breathing) {
+        feedback.push(Feedback.ACTION_CPR_BREATHING_INCORRECT)
+      }
+    }
 
     if (!p.breathing) feedback.push(Feedback.NOT_BREATHING)
     else if (p.canWalk && !p.severeBleeding) {
@@ -279,15 +294,3 @@ class TriageScoringTool {
     } else if (p.canWalk && (p.revealedTalking || p.revealedPenetrating || p.revealedBreathing)) {
       feedback.push(Feedback.OVERTRIAGED_WALKING)
     } else if (p.breathing && p.age < 2 && (p.revealedWalking || p.revealedTalking || p.revealedPenetrating || p.revealedBreathing)) {
-      feedback.push(Feedback.OVERTRIAGED_AGE_UNDER_TWO)
-    } else if (!p.talking && p.revealedPenetrating) {
-      feedback.push(Feedback.OVERTRIAGED_NOT_TALKING)
-    } else if (p.talking && p.revealedBreathing) {
-      feedback.push(Feedback.OVERTRIAGED_BREATHING)
-    }
-
-    return feedback
-  }
-}
-
-export const TST = new TriageScoringTool()
