@@ -54,7 +54,7 @@ const InfoModal: FunctionComponent = () => (
           Review the casualty characteristics on the triage tag, treat appropriately and assign a priority.
         </li>
         <li>
-          Not breathing is Silver. Severe bleeding, age under 2, not talking, or talking with a
+          Not breathing is Silver. Otherwise, severe bleeding, age under 2, not talking, or talking with a
           penetrating torso injury is P1 (Red); can walk is P3 (Green); all other casualties are P2 (Yellow).
         </li>
         <li>
