@@ -48,6 +48,7 @@ const FeedbackCard: FunctionComponent = () => {
       case Feedback.OVERTRIAGED_WALKING: return t('Incorrect: You overtriaged; a walking casualty without severe bleeding is triaged as P3 so the additional checks are irrelevant.')
       case Feedback.MISSING_PENETRATING_CHECK: return t('Incorrect: You failed to check for a penetrating injury.')
       case Feedback.OVERTRIAGED_NOT_TALKING: return t('Incorrect: You overtriaged by checking for a penetrating injury when the casualty was not talking.')
+      case Feedback.OVERTRIAGED_AGE_UNDER_TWO: return t('Incorrect: You overtriaged; all children under 2 are triaged as P1 so the additional checks are irrelevant.')
     }
   }
 
