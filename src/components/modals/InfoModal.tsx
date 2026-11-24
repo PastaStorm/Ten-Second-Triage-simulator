@@ -16,7 +16,7 @@ const InfoModal: FunctionComponent = () => (
         For the TST Tool{' '}
         <a
           className="underline underline-offset-2"
-          href="https://england.nhs.uk"
+          href="https://www.england.nhs.uk/long-read/ten-second-triage-tool/"
           target="_blank"
           rel="noopener noreferrer"
         >
