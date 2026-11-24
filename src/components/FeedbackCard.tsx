@@ -56,6 +56,7 @@ const FeedbackCard: FunctionComponent = () => {
   if (patient === undefined) return <></>
 
   const feedback = TST.getFeedback(patient)
+  const [firstFeedback] = feedback
   const reasonIndex = feedback.findIndex(fb => [
     Feedback.NOT_BREATHING,
     Feedback.WALKING_P3,
@@ -70,8 +71,7 @@ const FeedbackCard: FunctionComponent = () => {
   const lines: string[] = []
   if (feedback.length > 0) {
     if (reasonIndex > 0) {
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      lines.push(`${feedbackToString(feedback.at(0)!)}: ${feedbackToString(feedback[reasonIndex])}`)
+      lines.push(`${feedbackToString(firstFeedback)}: ${feedbackToString(feedback[reasonIndex])}`)
       feedback.forEach((fb, idx) => {
         if (idx !== 0 && idx !== reasonIndex) {
           lines.push(feedbackToString(fb))
