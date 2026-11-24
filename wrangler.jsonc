@@ -1,8 +1,8 @@
 {
-  "name": "ten-second-triage-simulator-v2",
+  "name": "ten-second-triage-simulator",
   "compatibility_date": "2025-09-01",
   "assets": {
     "directory": "./dist",
     "not_found_handling": "single-page-application"
   }
-}   
+}
