@@ -35,8 +35,8 @@ const FeedbackCard: FunctionComponent = () => {
       case Feedback.OTHERWISE_P2: return t('No P1 or P3 criteria apply: classify as P2 (Yellow).')
       case Feedback.SEVERE_BLEEDING_ACTION: return t('Incorrect: You failed to complete the required action for this casualty: you failed to apply pressure / tourniquet / packing.')
       case Feedback.SEVERE_BLEEDING_ACTION_CORRECT: return t('Correct: You applied pressure / tourniquet / packing.')
-      case Feedback.NOT_BREATHING_ACTION: return t('Incorrect: You failed to complete the required action for this casualty: you failed to place in recovery position or carry out CPR if resources allow.')
-      case Feedback.NOT_BREATHING_ACTION_CORRECT: return t('Correct: You placed in recovery position or carried out CPR if resources allow.')
+      case Feedback.NOT_BREATHING_ACTION: return t('Incorrect: You failed to complete the required action for this casualty: you failed to carry out CPR if resources allow.')
+      case Feedback.NOT_BREATHING_ACTION_CORRECT: return t('Correct: You carried out CPR if resources allow.')
       case Feedback.NOT_TALKING_P1_ACTION: return t('Incorrect: You failed to complete the required action for this casualty: you failed to place in recovery position.')
       case Feedback.NOT_TALKING_P1_ACTION_CORRECT: return t('Correct: You placed in recovery position.')
       case Feedback.SEVERE_BLEEDING_RECOVERY_NOTE: return t('Although technically not part of the TST algorithm if the casualty is unconscious then it is best practice to place them in the recovery position.')
@@ -51,7 +51,6 @@ const FeedbackCard: FunctionComponent = () => {
       case Feedback.OVERTRIAGED_AGE_UNDER_TWO: return t('Incorrect: You overtriaged; all children under 2 are triaged as P1 so the additional checks are irrelevant.')
       case Feedback.ACTION_BLEEDING_INCORRECT: return t('Incorrect: You applied pressure / tourniquet / packing when there was no severe bleeding.')
       case Feedback.ACTION_RECOVERY_TALKING_INCORRECT: return t('Incorrect: You attempted to place a talking casualty in the recovery position.')
-      case Feedback.ACTION_CPR_TALKING_INCORRECT: return t('Incorrect: You attempted to place a talking casualty in the recovery position or you attempted CPR on a talking casualty.')
       case Feedback.ACTION_CPR_BREATHING_INCORRECT: return t('Incorrect: You attempted CPR on a breathing casualty.')
     }
   }
