@@ -1,7 +1,6 @@
 import { type FunctionComponent } from 'preact'
 import Icon from './Icon'
 import { useGame, useModal } from '../hooks'
-import { STATS_MODAL_ID } from './modals/StatsModal'
 import { INFO_MODAL_ID } from './modals/InfoModal'
 import { useTranslation } from 'react-i18next'
 
@@ -16,7 +15,6 @@ const ToolbarIcon: FunctionComponent<ToolbarIconProps> = ({ n, title, onClick })
 const Toolbar: FunctionComponent = () => {
   const { t } = useTranslation()
   const { newGame } = useGame()
-  const { open: openStats } = useModal(STATS_MODAL_ID)
   const { open: openInfo } = useModal(INFO_MODAL_ID)
 
   const onReload = (): void => { newGame() }
@@ -30,7 +28,6 @@ const Toolbar: FunctionComponent = () => {
         NHS TST Simulator
       </span>
       <ToolbarIcon n="info" title={t('About')} onClick={openInfo} />
-      <ToolbarIcon n="show_chart" title={t('Statistics')} onClick={openStats} />
       <ToolbarIcon n="restart_alt" title={t('New disaster')} onClick={onReload} />
     </div>
   )
