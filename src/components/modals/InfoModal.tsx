@@ -44,7 +44,7 @@ const InfoModal: FunctionComponent = () => (
           penetrating torso injury is P1 (Red); can walk is P3 (Green); all other casualties are P2 (Yellow).
         </li>
         <li>
-          Remember that exclusions from the tool are: can walk with severe bleeding is a P1 (Red), and children under 2 are automatically a P1 (Red).
+          Exclusions from the tool are: can walk with severe bleeding is a P1 (Red), and children under 2 are automatically a P1 (Red).
         </li>
         <li>
           Appropriate treatments are any required immediate actions: apply pressure, a
