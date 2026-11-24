@@ -8,9 +8,16 @@ const InfoModal: FunctionComponent = () => (
   <Modal name={INFO_MODAL_ID} title='About'>
     <div className="text-lg/6">
       <p className="mb-2">
-        Welcome to <strong>⛑ Triage Simulator</strong>! This app allows you to
-        learn and gain familiarity with triage protocols for mass casualty
-        incidents. It uses the NHS Ten Second Triage (TST) tool.
+        Welcome to{' '}
+        <strong>
+          <span className="inline-block" style={{ filter: 'hue-rotate(115deg)' }}>
+            ⛑
+          </span>{' '}
+          Triage Simulator
+        </strong>
+        ! This app allows you to learn and gain familiarity with triage
+        protocols for mass casualty incidents. It uses the NHS Ten Second Triage
+        (TST) tool.
       </p>
       <h3 className="text-2xl font-black mt-4 mb-2">How it works</h3>
       <ol className="mb-2 pl-2 list-disc list-inside">
@@ -46,7 +53,7 @@ const InfoModal: FunctionComponent = () => (
           For the TST Tool{' '}
           <a
             className="underline underline-offset-2"
-            href="https://www.england.nhs.uk/wp-content/uploads/2023/04/PRN00365iv-ten-second-triage-tool-april-2023.pdf"
+            href="https://england.nhs.uk"
             target="_blank"
             rel="noopener noreferrer"
           >
