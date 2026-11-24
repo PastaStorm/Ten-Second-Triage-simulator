@@ -13,7 +13,7 @@ const InfoModal: FunctionComponent = () => (
           <span className="inline-block" style={{ filter: 'hue-rotate(115deg)' }}>
             ⛑
           </span>{' '}
-          Triage Simulator
+          NHS TST Simulator
         </strong>
         ! This app allows you to learn and gain familiarity with triage
         protocols for mass casualty incidents. It uses the NHS Ten Second Triage
@@ -63,9 +63,17 @@ const InfoModal: FunctionComponent = () => (
       </ol>
       <h3 className="text-2xl font-black mt-4 mb-2">About the project</h3>
       <p className="mb-2">
-        Triage Simulator is an open source project, you can find the code and
-        report issues in the <a className="underline underline-offset-2" href="https://github.com">Github repository</a>.
-        You are currently running version {APP_VERSION} at commit {COMMIT_HASH}.
+        NHS TST Simulator is an open source project, you can find the code and
+        report issues or leave feedback in the{' '}
+        <a
+          className="underline underline-offset-2"
+          href="https://github.com"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Github repository
+        </a>.
+        You are currently running version {COMMIT_HASH}.
       </p>
       <p className="mb-2">
         Copyright © 2023 Alberto Coscia. Released under the GNU Affero General
