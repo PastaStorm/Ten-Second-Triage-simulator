@@ -21,6 +21,7 @@ const INCORRECT_FEEDBACK = new Set<Feedback>([
   Feedback.OVERTRIAGED_WALKING,
   Feedback.MISSING_PENETRATING_CHECK,
   Feedback.OVERTRIAGED_NOT_TALKING,
+  Feedback.OVERTRIAGED_AGE_UNDER_TWO,
 ])
 
 interface PatientDotProps {
