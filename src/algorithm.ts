@@ -57,7 +57,6 @@ export enum Feedback {
   OVERTRIAGED_AGE_UNDER_TWO,
   ACTION_BLEEDING_INCORRECT,
   ACTION_RECOVERY_TALKING_INCORRECT,
-  ACTION_CPR_TALKING_INCORRECT,
   ACTION_CPR_BREATHING_INCORRECT,
 }
 
@@ -199,14 +198,13 @@ class TriageScoringTool {
   getRequiredActions (patient: Patient): { bleeding: boolean, recovery: boolean, cpr: boolean } {
     return {
       bleeding: patient.severeBleeding,
-      recovery: !patient.severeBleeding && patient.breathing && !patient.talking && !patient.canWalk,
+      recovery: !patient.talking && !patient.canWalk,
       cpr: !patient.breathing
     }
   }
 
   validateActions (patient: Patient): { valid: boolean, missing: boolean, incorrect: boolean } {
     const required = this.getRequiredActions(patient)
-    const optionalRecovery = !required.recovery && !patient.talking && !patient.canWalk
 
     const missing =
       (required.bleeding && !patient.actionBleeding) ||
@@ -215,7 +213,7 @@ class TriageScoringTool {
 
     const incorrect =
       (!required.bleeding && Boolean(patient.actionBleeding)) ||
-      (!required.recovery && !optionalRecovery && Boolean(patient.actionRecovery)) ||
+      (!required.recovery && Boolean(patient.actionRecovery)) ||
       (!required.cpr && Boolean(patient.actionCPR))
 
     return { valid: !missing && !incorrect, missing, incorrect }
@@ -238,12 +236,8 @@ class TriageScoringTool {
     if (p.actionRecovery && p.talking) {
       feedback.push(Feedback.ACTION_RECOVERY_TALKING_INCORRECT)
     }
-    if (p.actionCPR) {
-      if (p.talking) {
-        feedback.push(Feedback.ACTION_CPR_TALKING_INCORRECT)
-      } else if (p.breathing) {
-        feedback.push(Feedback.ACTION_CPR_BREATHING_INCORRECT)
-      }
+    if (p.actionCPR && p.breathing) {
+      feedback.push(Feedback.ACTION_CPR_BREATHING_INCORRECT)
     }
 
     if (!p.breathing) feedback.push(Feedback.NOT_BREATHING)
@@ -266,21 +260,19 @@ class TriageScoringTool {
       }
     }
 
+    if (!p.talking && !p.canWalk) {
+      if (p.actionRecovery) {
+        feedback.push(Feedback.NOT_TALKING_P1_ACTION_CORRECT)
+      } else {
+        feedback.push(Feedback.NOT_TALKING_P1_ACTION)
+      }
+    }
+
     if (!p.breathing) {
       if (p.actionCPR) {
         feedback.push(Feedback.NOT_BREATHING_ACTION_CORRECT)
       } else {
         feedback.push(Feedback.NOT_BREATHING_ACTION)
-      }
-    }
-
-    if (p.breathing && !p.talking && !p.canWalk) {
-      if (p.severeBleeding) {
-        feedback.push(Feedback.SEVERE_BLEEDING_RECOVERY_NOTE)
-      } else if (p.actionRecovery) {
-        feedback.push(Feedback.NOT_TALKING_P1_ACTION_CORRECT)
-      } else {
-        feedback.push(Feedback.NOT_TALKING_P1_ACTION)
       }
     }
 
