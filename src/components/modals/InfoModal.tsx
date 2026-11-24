@@ -16,7 +16,7 @@ const InfoModal: FunctionComponent = () => (
         For the TST Tool{' '}
         <a
           className="underline underline-offset-2"
-          href="https://www.england.nhs.uk/long-read/ten-second-triage-tool/"
+          href="https://england.nhs.uk"
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -37,16 +37,19 @@ const InfoModal: FunctionComponent = () => (
           colour will update to reflect your choice.
         </li>
         <li>
-          Review the casualty characteristics on the triage tag, treat appropriately and assign a priority.
+          Using the Triage Tool, review the casualty characteristics on the triage tag, treat appropriately and assign a priority.
         </li>
         <li>
           Not breathing is Silver. Severe bleeding, age under 2, not talking, or talking with a
           penetrating torso injury is P1 (Red); can walk is P3 (Green); all other casualties are P2 (Yellow).
         </li>
         <li>
+          Remember that exclusions from the tool are: can walk with severe bleeding is a P1 (Red), and children under 2 are automatically a P1 (Red).
+        </li>
+        <li>
           Appropriate treatments are any required immediate actions: apply pressure, a
           tourniquet, or packing for severe bleeding; place non-talking
-          breathing casualties in the recovery position; or recovery position/perform CPR if not
+          breathing casualties in the recovery position; or place in the recovery position and perform CPR if not
           breathing (as resources allow).
         </li>
         <li>
