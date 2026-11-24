@@ -139,7 +139,6 @@ class TriageScoringTool {
       }
       posture = availablePostures[seed % availablePostures.length]
     }
-
     const generalCues = [
       `with superficial grazes to ${pronoun} palms`,
       `covered in dust and holding ${pronoun} shoulder`,
@@ -294,3 +293,15 @@ class TriageScoringTool {
     } else if (p.canWalk && (p.revealedTalking || p.revealedPenetrating || p.revealedBreathing)) {
       feedback.push(Feedback.OVERTRIAGED_WALKING)
     } else if (p.breathing && p.age < 2 && (p.revealedWalking || p.revealedTalking || p.revealedPenetrating || p.revealedBreathing)) {
+      feedback.push(Feedback.OVERTRIAGED_AGE_UNDER_TWO)
+    } else if (!p.talking && p.revealedPenetrating) {
+      feedback.push(Feedback.OVERTRIAGED_NOT_TALKING)
+    } else if (p.talking && p.revealedBreathing) {
+      feedback.push(Feedback.OVERTRIAGED_BREATHING)
+    }
+
+    return feedback
+  }
+}
+
+export const TST = new TriageScoringTool()
