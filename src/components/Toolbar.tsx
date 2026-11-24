@@ -23,7 +23,12 @@ const Toolbar: FunctionComponent = () => {
 
   return (
     <div className="flex flex-row items-center gap-2 mb-4">
-      <span className="text-lg font-black flex-1">⛑ NHS TST Simulator</span>
+      <span className="text-lg font-black flex-1">
+        <span className="inline-block" style={{ filter: 'hue-rotate(115deg)' }}>
+          ⛑
+        </span>{' '}
+        NHS TST Simulator
+      </span>
       <ToolbarIcon n="info" title={t('About')} onClick={openInfo} />
       <ToolbarIcon n="show_chart" title={t('Statistics')} onClick={openStats} />
       <ToolbarIcon n="restart_alt" title={t('New disaster')} onClick={onReload} />
