@@ -100,7 +100,7 @@ const TriageTag: FunctionComponent = () => {
       <div className='grid grid-cols-3 h-20 text-white gap-1 mb-2'>
         <TagTool title={t('Apply pressure / tourniquet / packing')} label={t('Apply pressure / tourniquet / packing')} id='action-bleeding' onClick={() => toggleActionButton('Bleeding')} active={patient.actionBleeding} bgColor={patient.actionBleeding ? 'bg-red-600' : 'bg-blue-600'} />
         <TagTool title={t('Place in recovery position')} label={t('Place in recovery position')} id='action-recovery' onClick={() => toggleActionButton('Recovery')} active={patient.actionRecovery} bgColor={patient.actionRecovery ? 'bg-red-600' : 'bg-blue-600'} />
-        <TagTool title={t('Place in recovery position or CPR if resources allow')} label={t('Place in recovery position or CPR if resources allow')} id='action-cpr' onClick={() => toggleActionButton('CPR')} active={patient.actionCPR} bgColor={patient.actionCPR ? 'bg-red-600' : 'bg-blue-600'} />
+        <TagTool title={t('CPR if resources allow')} label={t('CPR if resources allow')} id='action-cpr' onClick={() => toggleActionButton('CPR')} active={patient.actionCPR} bgColor={patient.actionCPR ? 'bg-red-600' : 'bg-blue-600'} />
       </div>
 
       <h4 className='text-xs font-bold uppercase tracking-wider text-gray-500 mt-2 mb-1 px-1'>
