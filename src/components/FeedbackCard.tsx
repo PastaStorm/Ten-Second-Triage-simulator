@@ -20,11 +20,11 @@ const FeedbackCard: FunctionComponent = () => {
 
   const feedbackToString = (fb: Feedback): string => {
     switch (fb) {
-      case Feedback.CODE_NOT_ASSIGNED: return t('❓ You did not assign a priority to this casualty')
+      case Feedback.CODE_NOT_ASSIGNED: return t('Incorrect: You did not assign a priority to this casualty.')
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       case Feedback.CODE_CORRECT: return t('Correct TST Priority: {{c}}', { c: t(codeToLabel(patient!.code)) })
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      case Feedback.CODE_INCORRECT: return t('TST indicates {{c}}; you assigned {{a}}', { c: t(codeToLabel(patient!.code)), a: t(codeToLabel(patient!.assignedCode!)) })
+      case Feedback.CODE_INCORRECT: return t('Incorrect: TST indicates {{c}}; you assigned {{a}}.', { c: t(codeToLabel(patient!.code)), a: t(codeToLabel(patient!.assignedCode!)) })
       case Feedback.NOT_BREATHING: return t('Not breathing: classify as Not Breathing (Silver).')
       case Feedback.WALKING_P3: return t('Can walk: classify as P3 (Green).')
       case Feedback.WALKING_P3_NOTE: return t('P3 casualties should be directed towards a place of safety.')
@@ -71,7 +71,7 @@ const FeedbackCard: FunctionComponent = () => {
   if (feedback.length > 0) {
     if (reasonIndex > 0) {
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      lines.push(`${feedbackToString(feedback[0])}: ${feedbackToString(feedback[reasonIndex])}`)
+      lines.push(`${feedbackToString(feedback)}: ${feedbackToString(feedback[reasonIndex])}`)
       feedback.forEach((fb, idx) => {
         if (idx !== 0 && idx !== reasonIndex) {
           lines.push(feedbackToString(fb))
