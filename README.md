@@ -4,7 +4,7 @@ Ten Second Triage Tool is a simple web app that allows healthcare workers, emerg
 
 Adapted by PastaStorm, 2026, for the NHS Ten Second Triage (TST) tool.
 
-You can see the live deployment [here](https://ten-second-triage-simulator-v2.pastastorm.workers.dev/).
+You can see the live deployment [here](https://workers.dev).
 
 ## Installation
 
@@ -42,4 +42,4 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU Affero General Public License for more details.
 
 You should have received a copy of the GNU Affero General Public License
-along with this program.  If not, see <https://www.gnu.org/licenses/>.
+along with this program.  If not, see <https://gnu.org>.
