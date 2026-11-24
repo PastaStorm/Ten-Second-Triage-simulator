@@ -4,7 +4,7 @@ Ten Second Triage Tool is a simple web app that allows healthcare workers, emerg
 
 Adapted by PastaStorm, 2026, for the NHS Ten Second Triage (TST) tool.
 
-You can see the live deployment [here](https://workers.dev).
+You can see the live deployment [here](https://ten-second-triage-simulator.pastastorm.workers.dev/).
 
 ## Installation
 
