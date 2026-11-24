@@ -8,23 +8,9 @@ const InfoModal: FunctionComponent = () => (
   <Modal name={INFO_MODAL_ID} title='About'>
     <div className="text-lg/6">
       <p className="mb-2">
-        Welcome to{' '}
-        <strong>
-          <svg
-            xmlns="http://w3.org"
-            viewBox="0 0 64 64"
-            className="inline-block w-6 h-6 align-text-bottom mr-1"
-            aria-hidden="true"
-          >
-            <path fill="#16a34a" d="M10 40c0-13.255 9.85-24 22-24s22 10.745 22 24v4H10v-4z" />
-            <rect fill="#15803d" x="6" y="42" width="52" height="6" rx="3" />
-            <path fill="#ffffff" d="M29 22h6v6h6v6h-6v6h-6v-6h-6v-6h6z" />
-          </svg>
-          NHS TST Simulator
-        </strong>
-        ! This app allows you to learn and gain familiarity with triage
-        protocols for mass casualty incidents. It uses the NHS Ten Second Triage
-        (TST) tool.
+        Welcome to <strong>NHS TST Simulator</strong>! This app allows you to
+        learn and gain familiarity with triage protocols for mass casualty
+        incidents. It uses the NHS Ten Second Triage (TST) tool.
       </p>
       <p className="mb-2">
         For the TST Tool{' '}
@@ -54,7 +40,7 @@ const InfoModal: FunctionComponent = () => (
           Review the casualty characteristics on the triage tag, treat appropriately and assign a priority.
         </li>
         <li>
-          Not breathing is Silver. Otherwise, severe bleeding, age under 2, not talking, or talking with a
+          Not breathing is Silver. Severe bleeding, age under 2, not talking, or talking with a
           penetrating torso injury is P1 (Red); can walk is P3 (Green); all other casualties are P2 (Yellow).
         </li>
         <li>
