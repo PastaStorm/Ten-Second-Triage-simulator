@@ -43,8 +43,15 @@ const InfoModal: FunctionComponent = () => (
           triage tag
         </li>
         <li>
-          Use <Icon n="show_chart" className='text-xl/6 align-bottom' /> to
-          display statistics such as the levels of over and under-triage
+          For the TST Tool{' '}
+          <a
+            className="underline underline-offset-2"
+            href="https://www.england.nhs.uk/wp-content/uploads/2023/04/PRN00365iv-ten-second-triage-tool-april-2023.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            click here
+          </a>
         </li>
       </ol>
       <h3 className="text-2xl font-black mt-4 mb-2">About the project</h3>
