@@ -46,7 +46,7 @@ const InfoModal: FunctionComponent = () => (
         <li>
           Appropriate treatments are any required immediate actions: apply pressure, a
           tourniquet, or packing for severe bleeding; place non-talking
-          breathing casualties in the recovery position; or perform CPR if not
+          breathing casualties in the recovery position; or recovery position/perform CPR if not
           breathing (as resources allow).
         </li>
         <li>
