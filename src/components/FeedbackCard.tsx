@@ -41,14 +41,18 @@ const FeedbackCard: FunctionComponent = () => {
       case Feedback.NOT_TALKING_P1_ACTION_CORRECT: return t('Correct: You placed in recovery position.')
       case Feedback.SEVERE_BLEEDING_RECOVERY_NOTE: return t('Although technically not part of the TST algorithm if the casualty is unconscious then it is best practice to place them in the recovery position.')
       case Feedback.SEVERE_BLEEDING_WALKING: return t('Severe bleeding while walking: classify as P1 (Red). Critically injured casualties who are walking should be sat down and triaged/treated as P1. Ref: NARU TST Non Clinical Responders Supplementary Information.')
-      case Feedback.ACTION_INCORRECT: return t('Incorrect: You failed to perform the correct action for this casualty OR you carried out an improper action.')
-      case Feedback.MISSING_ACTION: return t('Incorrect: You failed to complete the required action for this casualty.')
+      case Feedback.ACTION_INCORRECT: return t('Incorrect: You carried out an unnecessary or improper action for this casualty.')
+      case Feedback.MISSING_ACTION: return t('Incorrect: You missed a required action for this casualty.')
       case Feedback.OVERTRIAGED_BREATHING: return t('Incorrect: You overtriaged by checking breathing when the casualty was talking.')
       case Feedback.OVERTRIAGED_SEVERE_BLEEDING: return t('Incorrect: You overtriaged; a severe bleed is triaged as P1 so the additional checks are irrelevant.')
       case Feedback.OVERTRIAGED_WALKING: return t('Incorrect: You overtriaged; a walking casualty without severe bleeding is triaged as P3 so the additional checks are irrelevant.')
       case Feedback.MISSING_PENETRATING_CHECK: return t('Incorrect: You failed to check for a penetrating injury.')
       case Feedback.OVERTRIAGED_NOT_TALKING: return t('Incorrect: You overtriaged by checking for a penetrating injury when the casualty was not talking.')
       case Feedback.OVERTRIAGED_AGE_UNDER_TWO: return t('Incorrect: You overtriaged; all children under 2 are triaged as P1 so the additional checks are irrelevant.')
+      case Feedback.ACTION_BLEEDING_INCORRECT: return t('Incorrect: You applied pressure / tourniquet / packing when there was no severe bleeding.')
+      case Feedback.ACTION_RECOVERY_TALKING_INCORRECT: return t('Incorrect: You attempted to place a talking casualty in the recovery position.')
+      case Feedback.ACTION_CPR_TALKING_INCORRECT: return t('Incorrect: You attempted to place a talking casualty in the recovery position or you attempted CPR on a talking casualty.')
+      case Feedback.ACTION_CPR_BREATHING_INCORRECT: return t('Incorrect: You attempted CPR on a breathing casualty.')
     }
   }
 
