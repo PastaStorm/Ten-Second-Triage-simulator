@@ -45,10 +45,10 @@ const PatientDot: FunctionComponent<PatientDotProps> = ({ active, patient, onSel
   const wrong = assignedCode !== 0 && (patient.code !== assignedCode || hasIncorrectFeedback)
 
   let icon = 'circle'
-  if (reveal) {
-    if (assignedCode === 0) icon = 'help'
-    else if (wrong) icon = 'cancel'
-    else if (!wrong) icon = 'check_circle'
+  if (assignedCode === 0) {
+    icon = 'help'
+  } else if (reveal) {
+    icon = wrong ? 'cancel' : 'check_circle'
   }
 
   return (
