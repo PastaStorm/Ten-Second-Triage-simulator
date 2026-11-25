@@ -16,7 +16,7 @@ const InfoModal: FunctionComponent = () => (
         For the TST Tool{' '}
         <a
           className="underline underline-offset-2"
-          href="https://www.england.nhs.uk/long-read/ten-second-triage-tool/"
+          href="https://england.nhs.uk"
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -44,7 +44,16 @@ const InfoModal: FunctionComponent = () => (
           penetrating torso injury is P1 (Red); can walk is P3 (Green); all other casualties are P2 (Yellow).
         </li>
         <li>
-          Remember that exclusions from the tool are: can walk with severe bleeding is a P1 (Red), and children under 2 are automatically a P1 (Red).
+          Please note the key exceptions outlined in the{' '}
+          <a
+            className="underline underline-offset-2"
+            href="https://www.england.nhs.uk/wp-content/uploads/2018/12/naru-tst-non-clinical-responders-supplementary-information.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            NARU TST Non-Clinical Responders Supplementary Information
+          </a>
+          : mobile casualties presenting with severe bleeding should be sat down and triaged as <strong>P1 (Red)</strong>, and all children under 2 years of age are automatically categorised as <strong>P1 (Red)</strong>.
         </li>
         <li>
           Appropriate treatments are any required immediate actions: apply pressure, a
