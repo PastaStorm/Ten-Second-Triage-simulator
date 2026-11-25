@@ -16,7 +16,7 @@ const InfoModal: FunctionComponent = () => (
         For the TST Tool{' '}
         <a
           className="underline underline-offset-2"
-          href="https://www.england.nhs.uk/wp-content/uploads/2023/04/PRN00365iv-ten-second-triage-tool-april-2023.pdf"
+          href="https://www.england.nhs.uk/long-read/ten-second-triage-tool/"
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -44,7 +44,7 @@ const InfoModal: FunctionComponent = () => (
           penetrating torso injury is P1 (Red); can walk is P3 (Green); all other casualties are P2 (Yellow).
         </li>
         <li>
-          Exclusions from the tool are: can walk with severe bleeding is a P1 (Red), and children under 2 are automatically a P1 (Red).
+          Remember that exclusions from the tool are: can walk with severe bleeding is a P1 (Red), and children under 2 are automatically a P1 (Red).
         </li>
         <li>
           Appropriate treatments are any required immediate actions: apply pressure, a
